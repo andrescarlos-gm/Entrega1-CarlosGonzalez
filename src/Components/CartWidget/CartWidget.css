@@ -1,0 +1,32 @@
+.cart {
+    position: relative;
+    display: inline-block;
+    text-align: center;
+    justify-content: flex-start;
+  }
+  
+  .cart img span.circle {
+    margin-right: 60px;
+  }
+
+.centred{
+    position: absolute;
+    top: 40%;
+    left: 73%;
+    transform: translate(-50%, -50%);
+}
+
+span.circle {
+    background: rgba(252, 222, 32, 0.455);
+     border-radius: 0.8em;
+    -moz-border-radius: 0.8em;
+    -webkit-border-radius: 0.8em;
+    color: #ffffff;
+    display: inline-block;
+    font-weight: bold;
+    line-height: 1.6em;
+    margin-right: 15px;
+    text-align: center;
+    width: 1.6em; 
+    
+  }
