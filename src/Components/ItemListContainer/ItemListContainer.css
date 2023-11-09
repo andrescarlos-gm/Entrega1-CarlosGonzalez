@@ -6,7 +6,7 @@ html {
 .bgimg1,
 .bgimg2,
 .bgimg3 {
-    position:relative;
+    position: relative;
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
@@ -26,10 +26,13 @@ html {
 
 .caption {
     position: absolute;
-    left: 38%; /* Centra horizontalmente en relación con el padre */
-    transform: translateX(-50%); /* Corrige el centrado usando transform */
+    left: 38%;
+    /* Centra horizontalmente en relación con el padre */
+    transform: translateX(-50%);
+    /* Corrige el centrado usando transform */
     top: 14%;
-    width: auto; /* Ajusta el ancho automáticamente al contenido */
+    width: auto;
+    /* Ajusta el ancho automáticamente al contenido */
     text-align: center;
     color: rgb(0, 0, 0);
     font-weight: bold;
@@ -47,21 +50,23 @@ html {
 
 
 
-  @keyframes typing {
+@keyframes typing {
     from {
-      width: 0;
+        width: 0;
     }
-    to {
-      width: 100%;
-    }
-  }
-  @keyframes blink {
-    50% {
-      border-color: transparent;
-    }
-  }
 
-  .caption2 {
+    to {
+        width: 100%;
+    }
+}
+
+@keyframes blink {
+    50% {
+        border-color: transparent;
+    }
+}
+
+.caption2 {
     position: absolute;
     left: 0;
     top: 20%;
@@ -89,7 +94,7 @@ html {
 }
 
 .section {
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     height: fit-content;
     display: flex;
     align-items: center;
@@ -97,18 +102,19 @@ html {
     font-size: 35px;
     flex-direction: column;
     color: #000000;
-    background: rgb(68,69,84);
-    background: linear-gradient(90deg, rgba(229, 208, 204, 0.948) 0%, rgba(229, 208, 204, 0.777) 65%, rgba(229, 208, 204, 0.002) 100% );
+    background: rgb(68, 69, 84);
+    background: linear-gradient(90deg, rgba(229, 208, 204, 0.948) 0%, rgba(229, 208, 204, 0.777) 65%, rgba(229, 208, 204, 0.002) 100%);
 }
+
 .section2 {
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     height: fit-content;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 45px;
     flex-direction: column;
-    padding: 0 200px; 
+    padding: 0 200px;
     color: #000000;
     background: #5e6e61e0;
     padding-bottom: 10%;
@@ -119,6 +125,7 @@ html {
     position: static;
     width: auto;
 }
+
 .sectioncontainer {
 
     background-image: url(../../images/bg-robot.gif);
