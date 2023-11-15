@@ -10,10 +10,10 @@ export default function App() {
       <CssBaseline>
         <NavBar />
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/products" element={<Products />} />
-          <Route path="/contact" element={<Contact />} />
-          <ItemListContainer greeting="Transform your life with a super A+ robot assistant" />
+          <Route path="/" element={<ItemListContainer />} />
+          <Route path="/category/:id" element={<ItemListContainer />} />
+          <Route path="/item/:id" element={<>😇</>} />
+          <Route path="*" element={<>404</>} />
         </Routes>
         
       </CssBaseline>

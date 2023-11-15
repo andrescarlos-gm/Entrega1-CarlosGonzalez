@@ -10,11 +10,11 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import PrecisionManufacturingIcon from "@mui/icons-material/PrecisionManufacturing";
-import { NavLink } from "react-router-dom";
 
 import CartWidget from "../CartWidget/CartWidget";
+import products from "../../Products.json";
 
-const pages = ["Domestic Robots", "Lover Robots", "Security Robots"];
+const pages = products.robotsCatalog.map((item) => item.Category);
 
 function NavBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -121,10 +121,6 @@ function NavBar() {
               </Button>
             ))}
           </Box>
-
-          
-
-
 
           {/* Here we insert Shipping Cart */}
           <CartWidget />

@@ -1,27 +1,39 @@
 import "./ItemListContainer.css";
+import { useState, useEffect } from "react";
+import products from "../../Products.json"
 
-export default function ItemListContainer(props) {
+export default function ItemListContainer() {
+  const [items , setItems] = useState ([])
+  const [loading, setLoading] = useState(true)
+  
+  useEffect(()=>{
+    const promise = new Promise((resolve, reject) => {
+      setTimeout(()=> {
+        resolve(products);
+      }, 2000);
+    }) 
+    promise.then((response)=>{
+      setItems(response);
+    }).finally(()=> setLoading(false))
+  }, [] );
+
+
   return (
     <div>
       <div className="bgimg1">
         <div className="caption">
           <span className="border">
-            <p className="typ">{props.greeting}</p>
+            <p className="typ">
+              Transform your life with a super A+ robot assistant
+            </p>
           </span>
         </div>
       </div>
       <div className="sectioncontainer">
         <div className="section">
-          <p>People&apos;s Choice</p>
-          <p>
-            &quot;Custom humanoids that are true masterpieces <br /> of
-            engineering and design&quot;,
-            <br />
-            <br /> Quantum Nova.
-            <br />
-            <br />
-          </p>
-          <br />
+  
+
+  
         </div>
       </div>
       <div className="bgimg2">
