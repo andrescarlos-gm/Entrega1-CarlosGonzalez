@@ -13,7 +13,7 @@ import PrecisionManufacturingIcon from "@mui/icons-material/PrecisionManufacturi
 
 import CartWidget from "../CartWidget/CartWidget";
 import products from "../../Products.json";
-
+import { Link, NavLink } from "react-router-dom";
 const pages = products.robotsCatalog.map((item) => item.Category);
 
 function NavBar() {
@@ -91,11 +91,12 @@ function NavBar() {
           <PrecisionManufacturingIcon
             sx={{ display: { xs: "flex", md: "none" }, mr: 1 }}
           />
+          <NavLink to="/">
           <Typography
             variant="h5"
             noWrap
             component="a"
-            href="#app-bar-with-responsive-menu"
+            href="/"
             sx={{
               mr: 2,
               display: { xs: "flex", md: "none" },
@@ -109,11 +110,13 @@ function NavBar() {
           >
             parallax_Humanoid
           </Typography>
-
+          </NavLink>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
               <Button
-                key={page}
+              as={NavLink}  
+              key={page}
+              to={`/category/${page}`}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "black", display: "block" }}
               >

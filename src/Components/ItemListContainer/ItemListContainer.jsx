@@ -1,26 +1,30 @@
 import "./ItemListContainer.css";
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import products from "../../Products.json"
+import ItemList from "../Itemlist/Itemlist";
 
 export default function ItemListContainer() {
   const [items , setItems] = useState ([])
   const [loading, setLoading] = useState(true)
-  
+  const {id} = useParams();
+
   useEffect(()=>{
-    const promise = new Promise((resolve, reject) => {
+    const promise = new Promise((resolve) => {
       setTimeout(()=> {
         resolve(products);
       }, 2000);
     }) 
     promise.then((response)=>{
+
       setItems(response);
     }).finally(()=> setLoading(false))
-  }, [] );
+  }, [id] );
 
 
   return (
     <div>
-      <div className="bgimg1">
+      {/* <div className="bgimg1">
         <div className="caption">
           <span className="border">
             <p className="typ">
@@ -28,11 +32,11 @@ export default function ItemListContainer() {
             </p>
           </span>
         </div>
-      </div>
+      </div> */}
       <div className="sectioncontainer">
         <div className="section">
   
-
+        <ItemList/>
   
         </div>
       </div>

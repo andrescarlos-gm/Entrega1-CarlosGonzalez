@@ -1,22 +1,24 @@
 {
   "robotsCatalog": [
-    {
+    { "id": "1",
       "ProductName": "KOI-4878.01 Model",
       "ProductImage": "/images/robot1.jpg",
       "ProductDescription": "Meet our advanced assistant robot—seamless integration, intelligent responses, schedule management, and smart home control. Redefining convenience and productivity, it's your personalized ally in the future of assistance.",
-      "Category": "Domestic Robots"
+      "Category": "Domestic"
     },
-    {
+    { 
+      "id": "2",
       "ProductName": "Teegarden b",
       "ProductImage": "/images/robot2.jpg",
       "ProductDescription": "Teegarden B Security Robot ensures safety with advanced surveillance capabilities. Equipped with cutting-edge technology, it monitors and responds to security threats, maintaining a secure environment.",
-      "Category": "Security Robots"
+      "Category": "Security"
     },
     {
+      "id": "3",
       "ProductName": "K2-72 e",
       "ProductImage": "/images/robot3.jpg",
       "ProductDescription": "K2-72e Lover Robot is an intimate companion leveraging advanced AI for emotional connection. Tailored for companionship, it prioritizes empathy and understanding to enhance the user's emotional well-being.",
-      "Category": "Lover Robots"
+      "Category": "Lover"
     }
   ]
 }
