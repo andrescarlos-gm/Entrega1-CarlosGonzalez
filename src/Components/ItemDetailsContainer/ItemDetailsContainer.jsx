@@ -14,7 +14,7 @@ export default function Item( ) {
         <CardMedia
           component="img"
           height="300"
-          image={Catalog.robotsCatalog.}
+          image={Catalog.robotsCatalog}
           alt="image"
         />
         <CardContent>
