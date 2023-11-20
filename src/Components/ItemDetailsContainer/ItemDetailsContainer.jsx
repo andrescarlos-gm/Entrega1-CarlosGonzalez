@@ -6,7 +6,7 @@ import { CardActionArea } from '@mui/material';
 import {Link} from 'react-router-dom'
 import Catalog from "../../Products.json";
 
-export default function Item( ) {
+export default function ItemDetailsContainer({ProductImage, ProductName, ProductDescription} ) {
 
   return (
     <Card sx={{ maxWidth: 345, backgroundColor: "#E5D0CC", width: 450,  }}>
@@ -14,7 +14,7 @@ export default function Item( ) {
         <CardMedia
           component="img"
           height="300"
-          image={Catalog.robotsCatalog}
+          image={ProductImage}
           alt="image"
         />
         <CardContent>
