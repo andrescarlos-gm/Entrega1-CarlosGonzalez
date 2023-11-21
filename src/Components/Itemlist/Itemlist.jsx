@@ -1,7 +1,8 @@
 import Catalog from "../../Products.json";
 import Item from "../Item/Item.jsx";
 
-export default function ItemList() {
+export default function ItemList({items}) {
+  console.log( {items})
   const robcatalog = Catalog.robotsCatalog;
   return (
     <div style={{ display: 'flex', gap: '16px', flexWrap: 'nowrap' , marginLeft: 30, marginTop: 60, marginBottom: 65   }}>

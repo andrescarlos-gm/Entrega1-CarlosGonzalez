@@ -9,17 +9,29 @@ export default function ItemListContainer() {
   const [loading, setLoading] = useState(true)
   const {id} = useParams();
 
-  useEffect(()=>{
-    const promise = new Promise((resolve) => {
-      setTimeout(()=> {
-        resolve(products);
-      }, 2000);
-    }) 
-    promise.then((response)=>{
+   useEffect(()=>{
+     const promise = new Promise((resolve) => {
+       setTimeout(()=> {
+         resolve(products);
+       }, 2000);
+     }) 
+     promise.then((response)=>{
 
-      setItems(response);
-    }).finally(()=> setLoading(false))
-  }, [id] );
+       setItems(response);
+     }).finally(()=> setLoading(false))
+   }, [id] );
+
+   useEffect(() => {
+    // Filtra los elementos según la categoría
+    const filteredItems = products.robotsCatalog.filter(
+      (item) => item.Category === id
+    );
+    console.log("Filtered Items:", filteredItems);
+
+    setItems(filteredItems);
+    setLoading(false);
+  }, [id]);
+
 
 
   return (
@@ -36,7 +48,7 @@ export default function ItemListContainer() {
       <div className="sectioncontainer">
         <div className="section">
   
-        <ItemList/>
+        <ItemList items={items} loading={loading}   />
   
         </div>
       </div>

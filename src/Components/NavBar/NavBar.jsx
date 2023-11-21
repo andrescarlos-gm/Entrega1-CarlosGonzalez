@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Link, NavLink } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -13,7 +14,7 @@ import PrecisionManufacturingIcon from "@mui/icons-material/PrecisionManufacturi
 
 import CartWidget from "../CartWidget/CartWidget";
 import products from "../../Products.json";
-import { Link, NavLink } from "react-router-dom";
+
 const pages = products.robotsCatalog.map((item) => item.Category);
 
 function NavBar() {
@@ -37,8 +38,8 @@ function NavBar() {
           <Typography
             variant="h6"
             noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
+            component={Link}
+            to="/"
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
@@ -92,31 +93,31 @@ function NavBar() {
             sx={{ display: { xs: "flex", md: "none" }, mr: 1 }}
           />
           <NavLink to="/">
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: "flex", md: "none" },
-              flexGrow: 1,
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            parallax_Humanoid
-          </Typography>
+            <Typography
+              variant="h5"
+              noWrap
+              component={Link}
+              to="/"
+              sx={{
+                mr: 2,
+                display: { xs: "flex", md: "none" },
+                flexGrow: 1,
+                fontFamily: "monospace",
+                fontWeight: 700,
+                letterSpacing: ".3rem",
+                color: "inherit",
+                textDecoration: "none",
+              }}
+            >
+              parallax_Humanoid
+            </Typography>
           </NavLink>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
               <Button
-              as={NavLink}  
-              key={page}
-              to={`/category/${page}`}
+                key={page}
+                component={NavLink}
+                to={`/category/${page}`}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "black", display: "block" }}
               >
@@ -132,4 +133,5 @@ function NavBar() {
     </AppBar>
   );
 }
+
 export default NavBar;

@@ -6,7 +6,8 @@ import { CardActionArea } from '@mui/material';
 import {Link} from 'react-router-dom'
 import Catalog from "../../Products.json";
 
-export default function ItemDetailsContainer({ProductImage, ProductName, ProductDescription} ) {
+export default function ItemDetailsContainer(props) {
+  const { ProductImage, ProductName, ProductDescription } = props;
 
   return (
     <Card sx={{ maxWidth: 345, backgroundColor: "#E5D0CC", width: 450,  }}>
