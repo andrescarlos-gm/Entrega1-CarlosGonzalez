@@ -16,7 +16,6 @@ export default function App() {
           <Route path="/item/:id" element={<ItemDetailsContainer/>} />
           <Route path="*" element={<>404</>} />
         </Routes>
-        
       </CssBaseline>
     </BrowserRouter>
   );

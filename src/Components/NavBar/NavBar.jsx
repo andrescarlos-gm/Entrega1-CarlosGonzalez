@@ -1,6 +1,6 @@
 import { NavLink, Link } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
-import {Box} from "@mui/material";
+import { Box } from "@mui/material";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
@@ -91,9 +91,7 @@ function NavBar() {
               sx={{
                 display: { xs: "block", md: "none" },
               }}
-            >
-
-            </Menu>
+            ></Menu>
           </Box>
           <PrecisionManufacturingIcon
             sx={{ display: { xs: "flex", md: "none" }, mr: 1 }}

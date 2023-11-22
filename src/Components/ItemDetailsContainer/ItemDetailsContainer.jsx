@@ -5,18 +5,17 @@ import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-const url = "https://6544295e5a0b4b04436c18e0.mockapi.io/v1/parallaxHumanoid/"
-
+const url = "https://6544295e5a0b4b04436c18e0.mockapi.io/v1/parallaxHumanoid/";
 
 export default function ItemDetailsContainer() {
-  const [ item, setItem ] = useState(null);
+  const [item, setItem] = useState(null);
   const { id } = useParams();
 
   useEffect(() => {
     const fetchData = () => {
       const promise = new Promise((resolve) => {
         setTimeout(() => {
-          resolve(url + (id ? `?category=${id}` : ''));
+          resolve(url + (id ? `?category=${id}` : ""));
         }, 2000);
       });
 
@@ -24,16 +23,16 @@ export default function ItemDetailsContainer() {
         .then((response) => fetch(response))
         .then((fetchResponse) => fetchResponse.json())
         .then((data) => {
-            const filterRes = data.find((item) => item.id == id);
-            setItem(filterRes);
-        })
+          const filterRes = data.find((item) => item.id == id);
+          setItem(filterRes);
+        });
     };
 
     fetchData();
   }, [id]);
 
-  if(!item){
-    return <>Loading...</>
+  if (!item) {
+    return <>Loading...</>;
   }
 
   return (
