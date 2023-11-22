@@ -30,7 +30,7 @@ function NavBar() {
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
-        const categories = data.map((item) => item.Category);
+        const categories = data.map((item) => item.category);
         const uniqueCat = [...new Set(categories)];
         setUniqueCat(uniqueCat);
       })
@@ -44,24 +44,22 @@ function NavBar() {
           <PrecisionManufacturingIcon
             sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
           />
-          <NavLink to="/">
-            <Typography
-              variant="h5"
-              noWrap
-              sx={{
-                mr: 2,
-                display: "flex",
-                flexGrow: 1,
-                fontFamily: "monospace",
-                fontWeight: 700,
-                letterSpacing: ".3rem",
-                color: "inherit",
-                textDecoration: "none",
-              }}
-            >
-              parallax_Humanoid
-            </Typography>
-          </NavLink>
+          <Typography
+            variant="h6"
+            noWrap
+            to="/"
+            sx={{
+              mr: 2,
+              display: { xs: "none", md: "flex" },
+              fontFamily: "monospace",
+              fontWeight: 700,
+              letterSpacing: ".3rem",
+              color: "inherit",
+              textDecoration: "none",
+            }}
+          >
+            parallax_Humanoid
+          </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
@@ -74,7 +72,6 @@ function NavBar() {
             >
               <MenuIcon />
             </IconButton>
-
             <Menu
               id="menu-appbar"
               anchorEl={anchorElNav}
@@ -103,29 +100,40 @@ function NavBar() {
           <PrecisionManufacturingIcon
             sx={{ display: { xs: "flex", md: "none" }, mr: 1 }}
           />
-
-          <Box
-            sx={{
-              flexGrow: 1,
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
+          <NavLink to="/">
+            <Typography
+              variant="h5"
+              noWrap
+              component={Link}
+              to="/"
+              sx={{
+                mr: 2,
+                display: { xs: "flex", md: "none" },
+                flexGrow: 1,
+                fontFamily: "monospace",
+                fontWeight: 700,
+                letterSpacing: ".3rem",
+                color: "inherit",
+                textDecoration: "none",
+              }}
+            >
+              parallax_Humanoid
+            </Typography>
+          </NavLink>
+          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {uniqueCat.map((item) => (
-              <Link
-                as={NavLink}
+              <NavLink
                 key={item}
                 to={`/category/${item}`}
                 style={{ marginRight: "8px" }}
                 onClick={handleCloseNavMenu}
               >
                 {item}
-              </Link>
+              </NavLink>
             ))}
           </Box>
 
+          {/* Here we insert Shipping Cart */}
           <CartWidget />
         </Toolbar>
       </Container>

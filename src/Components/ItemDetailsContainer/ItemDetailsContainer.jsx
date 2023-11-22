@@ -1,33 +1,59 @@
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
-import { CardActionArea } from '@mui/material';
-import {Link} from 'react-router-dom'
-import Catalog from "../../Products.json";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Typography from "@mui/material/Typography";
+import { CardActionArea } from "@mui/material";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+const url = "https://6544295e5a0b4b04436c18e0.mockapi.io/v1/parallaxHumanoid/"
 
-export default function ItemDetailsContainer(props) {
-  const { ProductImage, ProductName, ProductDescription } = props;
+
+export default function ItemDetailsContainer() {
+  const [ item, setItem ] = useState(null);
+  const { id } = useParams();
+
+  useEffect(() => {
+    const fetchData = () => {
+      const promise = new Promise((resolve) => {
+        setTimeout(() => {
+          resolve(url + (id ? `?category=${id}` : ''));
+        }, 2000);
+      });
+
+      promise
+        .then((response) => fetch(response))
+        .then((fetchResponse) => fetchResponse.json())
+        .then((data) => {
+            const filterRes = data.find((item) => item.id == id);
+            setItem(filterRes);
+        })
+    };
+
+    fetchData();
+  }, [id]);
+
+  if(!item){
+    return <>Loading...</>
+  }
 
   return (
-    <Card sx={{ maxWidth: 345, backgroundColor: "#E5D0CC", width: 450,  }}>
+    <Card sx={{ maxWidth: 345, backgroundColor: "#E5D0CC", width: 450 }}>
       <CardActionArea>
         <CardMedia
           component="img"
           height="300"
-          image={ProductImage}
+          image={item.ProductImage}
           alt="image"
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-            {ProductName}
+            {item.ProductName}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            {ProductDescription}
+            {item.ProductDescription}
           </Typography>
         </CardContent>
       </CardActionArea>
-    
     </Card>
   );
 }

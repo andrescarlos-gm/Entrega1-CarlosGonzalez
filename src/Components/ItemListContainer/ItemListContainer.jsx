@@ -1,8 +1,8 @@
 import "./ItemListContainer.css";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import products from "../../Products.json"
 import ItemList from "../Itemlist/Itemlist";
+const url = "https://6544295e5a0b4b04436c18e0.mockapi.io/v1/parallaxHumanoid/"
 
 export default function ItemListContainer() {
   const [items , setItems] = useState ([])
@@ -10,71 +10,35 @@ export default function ItemListContainer() {
   const {id} = useParams();
 
    useEffect(()=>{
+    const fetchData = () => {
      const promise = new Promise((resolve) => {
        setTimeout(()=> {
-         resolve(products);
-       }, 2000);
-     }) 
-     promise.then((response)=>{
+        resolve(url + (id ? `?category=${id}` : ''));
+      }, 2000);
+     });
 
-       setItems(response);
-     }).finally(()=> setLoading(false))
-   }, [id] );
+     promise
+     .then((response) => fetch(response))
+     .then((fetchResponse) => fetchResponse.json())
+     .then((data) => {
+       if (id) {
+         const filterRes = data.filter((item) => item.category === id);
+         setItems(filterRes);
+       } else {
+         setItems(data);
+       }
+     })
+     .finally(() => setLoading(false));
+ };
 
-   useEffect(() => {
-    // Filtra los elementos según la categoría
-    const filteredItems = products.robotsCatalog.filter(
-      (item) => item.Category === id
-    );
-    console.log("Filtered Items:", filteredItems);
-
-    setItems(filteredItems);
-    setLoading(false);
-  }, [id]);
-
-
+ fetchData();
+}, [id]);
 
   return (
     <div>
-      {/* <div className="bgimg1">
-        <div className="caption">
-          <span className="border">
-            <p className="typ">
-              Transform your life with a super A+ robot assistant
-            </p>
-          </span>
-        </div>
-      </div> */}
       <div className="sectioncontainer">
         <div className="section">
-  
         <ItemList items={items} loading={loading}   />
-  
-        </div>
-      </div>
-      <div className="bgimg2">
-        <div className="caption2">
-          <span className="border2">
-            NPU interface developed according <br />
-            to the AIS 2100-XI regulation of
-            <br /> the International Association for Human-Robot Safety (AMSHR),
-            <br /> which ensures the well-being of humans and automatons.
-          </span>
-        </div>
-      </div>
-      <div className="sectioncontainer2">
-        <div className="section2">
-          <p>
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            Discover the perfect symbiosis between the latest innovation and
-            personalized luxury, where technological excellence meets the most
-            exquisite style.
-          </p>
         </div>
       </div>
     </div>
