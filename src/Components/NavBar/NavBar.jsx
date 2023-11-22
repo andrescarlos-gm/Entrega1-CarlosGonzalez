@@ -1,13 +1,12 @@
-import { Link, NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
+import {Box} from "@mui/material";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
-import MenuItem from "@mui/material/MenuItem";
 import PrecisionManufacturingIcon from "@mui/icons-material/PrecisionManufacturing";
 import { useState, useEffect } from "react";
 
@@ -93,11 +92,7 @@ function NavBar() {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {uniqueCat.map((item) => (
-                <MenuItem key={item} onClick={handleCloseNavMenu}>
-                  {item}
-                </MenuItem>
-              ))}
+
             </Menu>
           </Box>
           <PrecisionManufacturingIcon

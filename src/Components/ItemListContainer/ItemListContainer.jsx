@@ -10,35 +10,31 @@ export default function ItemListContainer() {
   const {id} = useParams();
 
    useEffect(()=>{
-    const fetchData = () => {
-     const promise = new Promise((resolve) => {
-       setTimeout(()=> {
-        resolve(url + (id ? `?category=${id}` : ''));
-      }, 2000);
-     });
-
-     promise
-     .then((response) => fetch(response))
-     .then((fetchResponse) => fetchResponse.json())
-     .then((data) => {
-       if (id) {
-         const filterRes = data.filter((item) => item.category === id);
-         setItems(filterRes);
-       } else {
-         setItems(data);
-       }
-     })
-     .finally(() => setLoading(false));
- };
-
+    const fetchData = async () => {
+      try {
+        const response = await fetch(url + (id ? `?category=${id}` : ""));
+        const data = await response.json();
+    
+        if (id) {
+          const filteredData = data.filter((item) => item.Category === id);
+          setItems(filteredData);
+        } else {
+          setItems(data);
+        }
+      } catch (error) {
+        console.error("error fetching data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
  fetchData();
 }, [id]);
-
   return (
     <div>
       <div className="sectioncontainer">
         <div className="section">
         <ItemList items={items} loading={loading}   />
+        <console className="log"></console>
         </div>
       </div>
     </div>
