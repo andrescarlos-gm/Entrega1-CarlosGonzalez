@@ -33,7 +33,6 @@ export default function ItemListContainer() {
       <div className="sectioncontainer">
         <div className="section">
           <ItemList items={items} loading={loading} />
-          <console className="log"></console>
         </div>
       </div>
     </div>
