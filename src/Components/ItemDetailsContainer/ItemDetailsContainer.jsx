@@ -2,7 +2,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { CardActionArea } from "@mui/material";
+import { CardActionArea, Grid } from "@mui/material";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 const url = "https://6544295e5a0b4b04436c18e0.mockapi.io/v1/parallaxHumanoid/";
@@ -35,8 +35,21 @@ export default function ItemDetailsContainer() {
     return <>Loading...</>;
   }
 
+ 
+
+
   return (
-    <Card sx={{ maxWidth: 345, backgroundColor: "#E5D0CC", width: 450 }}>
+    <Grid
+    container
+    spacing={0}
+    direction="column"
+    alignItems="center"
+    justify="center"
+    style={{ minHeight: '100vh', paddingTop: '100px', backgroundColor: '#cfd8dc' }}
+   >
+      <Grid item xs={3}>
+
+    <Card sx={{ maxWidth: 345, backgroundColor: "#E5D0CC", width: 450, }}>
       <CardActionArea>
         <CardMedia
           component="img"
@@ -54,5 +67,6 @@ export default function ItemDetailsContainer() {
         </CardContent>
       </CardActionArea>
     </Card>
+    </Grid> </Grid>
   );
 }

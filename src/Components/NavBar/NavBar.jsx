@@ -43,7 +43,7 @@ function NavBar() {
           <PrecisionManufacturingIcon
             sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
           />
-          <NavLink to="/">
+          <NavLink to="/" style={{ textDecoration: 'none', color: 'black' }}>
             <Typography
               variant="h5"
               noWrap
@@ -111,7 +111,7 @@ function NavBar() {
                 as={NavLink}
                 key={item}
                 to={`/category/${item}`}
-                style={{ marginRight: "8px" }}
+                style={{ marginRight: "8px", textDecoration: 'none', color: 'black' }}
                 onClick={handleCloseNavMenu}
               >
                 {item}

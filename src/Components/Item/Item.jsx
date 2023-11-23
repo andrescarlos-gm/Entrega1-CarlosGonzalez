@@ -18,7 +18,7 @@ export default function Item({ item }) {
         />
                 
         <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
+          <Typography gutterBottom variant="h5" component="div" color="black">
             {item.ProductName}
           </Typography>
           <Typography variant="body2" color="text.secondary">
