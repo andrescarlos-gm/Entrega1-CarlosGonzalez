@@ -6,7 +6,7 @@ import { CardActionArea, Grid } from "@mui/material";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 const url = "https://6544295e5a0b4b04436c18e0.mockapi.io/v1/parallaxHumanoid/";
-
+import RingLoader from "react-spinners/RingLoader";
 export default function ItemDetailsContainer() {
   const [item, setItem] = useState(null);
   const { id } = useParams();
@@ -32,7 +32,15 @@ export default function ItemDetailsContainer() {
   }, [id]);
 
   if (!item) {
-    return <>Loading...</>;
+    return <Grid
+    container
+    spacing={0}
+    direction="column"
+    alignItems="center"
+    justify="center"
+    style={{ minHeight: '100vh', paddingTop: '200px', backgroundColor: '#cfd8dc' }}
+   >
+      <Grid item xs={3}><RingLoader/></Grid> </Grid> ;
   }
 
  
