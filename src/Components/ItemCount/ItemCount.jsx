@@ -26,7 +26,7 @@ export default function ItemCount({ stock }) {
             value={num}
           />
         </Box>
-        <Button size="medium" color="secondary" variant="contained">
+        <Button size="medium" color="secondary" variant="contained" >
           Add to Cart
         </Button>
       </CardActions>
