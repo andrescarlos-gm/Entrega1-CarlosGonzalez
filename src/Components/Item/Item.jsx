@@ -4,7 +4,6 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { Button, CardActionArea, Grid } from "@mui/material";
 import { Link } from "react-router-dom";
-import ItemCount from "../ItemCount/ItemCount.jsx";
 
 export default function Item({ item }) {
 
@@ -42,7 +41,6 @@ export default function Item({ item }) {
             Learn More
           </Button>
         </Link>
-        <ItemCount item={item} />
       </Grid>
     </Card>
   );

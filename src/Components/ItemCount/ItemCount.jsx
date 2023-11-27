@@ -2,7 +2,7 @@ import { Box, TextField, CardActions } from "@mui/material";
 import { Button, Grid } from "@mui/material";
 import { useState } from "react";
 
-export default function ItemCount({ item }) {
+export default function ItemCount({ stock }) {
   const [num, setNum] = useState(1);
   const handleChange = (e) => {
     const regex = /^[0-9\b]+$/;
@@ -21,9 +21,8 @@ export default function ItemCount({ item }) {
             id="outlined-basic"
             label="Quantity"
             variant="outlined"
-            inputProps={{ min: 1, max: item.stock }}
+            inputProps={{ min: 1, max: stock }}
             onChange={(e) => handleChange(e)}
-                        value={num}
             value={num}
           />
         </Box>
