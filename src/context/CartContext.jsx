@@ -11,15 +11,18 @@ export const CartProvider = ({ children }) => {
     }
   });
   const addToCart = (product) => {
-    console.log(typeof(product.id))
-    const existingProductIndex = cartList.findIndex((item) => parseInt(item.id));
+    const existingProductIndex = cartList.findIndex((item) => item.id === product.id);
     if (existingProductIndex !== -1) {
       const updatedCart = [...cartList];
-      console.log(updatedCart)
       updatedCart[existingProductIndex].quantity += product.quantity;
       setCartList(updatedCart);
-    } else {
-      setCartList([...cartList, product]);
+    }
+    else{ const newCartItem = {
+        ...product,
+        uniqueIdentifier: `${product.id}`,
+        quantity: product.quantity,
+      };
+      setCartList([...cartList, newCartItem]);
     }
   };
   useEffect(() => {
@@ -27,6 +30,7 @@ export const CartProvider = ({ children }) => {
     localStorage.setItem("cartProducts", JSON.stringify(cartList));
   }, [cartList]);
 
+  console.log(cartList)
 
   return (
     <CartContext.Provider value={{ addToCart}}>

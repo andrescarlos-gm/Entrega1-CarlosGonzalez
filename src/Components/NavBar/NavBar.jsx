@@ -8,8 +8,8 @@ import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import PrecisionManufacturingIcon from "@mui/icons-material/PrecisionManufacturing";
-import { useState, useEffect } from "react";
-
+import { useState, useEffect, useContext } from "react";
+import CartContext from "../../context/CartContext";
 import CartWidget from "../CartWidget/CartWidget";
 
 function NavBar() {
@@ -35,6 +35,7 @@ function NavBar() {
       })
       .catch((error) => console.error("Error", error));
   }, []);
+
 
   return (
     <AppBar position="static">

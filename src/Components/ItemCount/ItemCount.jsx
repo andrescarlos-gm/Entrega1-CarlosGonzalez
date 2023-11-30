@@ -21,7 +21,6 @@ export default function ItemCount({ stock , id }) {
       quantity: (parseInt(num))
     })
   }
-
   return (
     <Grid item xs={8}>
       <CardActions>
