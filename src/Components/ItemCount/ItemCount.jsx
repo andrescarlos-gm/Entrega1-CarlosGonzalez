@@ -1,16 +1,26 @@
 import { Box, TextField, CardActions } from "@mui/material";
 import { Button, Grid } from "@mui/material";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import CartContext from "../../context/CartContext";
 
-export default function ItemCount({ stock }) {
+export default function ItemCount({ stock , id }) {
   const [num, setNum] = useState(1);
+  
   const handleChange = (e) => {
     const regex = /^[0-9\b]+$/;
     if (e.target.value === "" || regex.test(e.target.value)) {
       setNum(e.target.value);
     }
   };
-  console.log(num)
+
+  const { addToCart} = useContext(CartContext)
+
+  const handleAddToCart = ()=>{
+    addToCart({
+      id: (parseInt(id)),
+      quantity: (parseInt(num))
+    })
+  }
 
   return (
     <Grid item xs={8}>
@@ -26,9 +36,10 @@ export default function ItemCount({ stock }) {
             value={num}
           />
         </Box>
-        <Button size="medium" color="secondary" variant="contained" >
+        <Button size="medium" color="secondary" variant="contained" onClick={handleAddToCart} >
           Add to Cart
         </Button>
+        
       </CardActions>
     </Grid>
   );

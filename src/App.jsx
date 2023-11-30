@@ -4,10 +4,13 @@ import ItemDetailsContainer from "./Components/ItemDetailsContainer/ItemDetailsC
 import { CssBaseline } from "@mui/material";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./main.css";
+import CartContext, {CartProvider} from "./context/CartContext";
 
-export default function App() {
+
+export default function App(cartList, addToCart, removeList, deleteItem) {
   return (
     <BrowserRouter>
+      <CartProvider>
       <CssBaseline>
         <NavBar />
         <Routes>
@@ -17,6 +20,7 @@ export default function App() {
           <Route path="*" element={<>404</>} />
         </Routes>
       </CssBaseline>
+      </CartProvider>
     </BrowserRouter>
   );
 }

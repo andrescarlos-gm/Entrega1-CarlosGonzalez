@@ -37,7 +37,7 @@ export default function Item({ item }) {
         alignItems="center"
       >
         <Link to={`/item/${item.id}`}>
-          <Button size="small" color="primary">
+          <Button size="small" color="primary" >
             Learn More
           </Button>
         </Link>
