@@ -10,6 +10,7 @@ import Container from "@mui/material/Container";
 import PrecisionManufacturingIcon from "@mui/icons-material/PrecisionManufacturing";
 import { useState, useEffect, useContext } from "react";
 import CartWidget from "../CartWidget/CartWidget";
+import CartContext from "../../context/CartContext";
 
 function NavBar() {
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -118,8 +119,7 @@ function NavBar() {
               </Link>
             ))}
           </Box>
-
-          <CartWidget />
+          <CartWidget  />
         </Toolbar>
       </Container>
     </AppBar>
