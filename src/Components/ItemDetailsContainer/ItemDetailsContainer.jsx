@@ -78,7 +78,7 @@ export default function ItemDetailsContainer() {
             <Typography variant="body2">{item.ProductDescription}</Typography>
           </CardContent>
           <Grid item xs={20}>
-            <ItemCount stock={item.stock} id={item.id} price={item.price} name={item.ProductName} image={item.ProductImage} />
+            <ItemCount stock={item.stock} id={item.id} price={item.price} name={item.ProductName} image={item.Product} />
           </Grid>
         </CardActionArea>
       </Card>

@@ -1,7 +1,7 @@
 import { Box, TextField, CardActions } from "@mui/material";
 import { Button, Grid } from "@mui/material";
 import { useState, useContext } from "react";
-import {CartContext} from "../../context/CartContext"
+import CartContext from "../../context/CartContext"
 
 export default function ItemCount({ stock , id, image, name, price }) {
   const [num, setNum] = useState(1);

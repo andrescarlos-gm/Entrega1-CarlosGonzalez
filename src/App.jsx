@@ -5,11 +5,13 @@ import { CssBaseline } from "@mui/material";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./main.css";
 import CartContainer from "./Components/CartContainer/CartContainer.jsx";
+import { CartProvider } from "./context/CartContext.jsx";
 
 function App() {
   return (
     <BrowserRouter>
       <CssBaseline>
+        <CartProvider>
         <NavBar />
         <Routes>
           <Route path="/" element={<ItemListContainer />} />
@@ -18,6 +20,7 @@ function App() {
           <Route path="*" element={<>404</>} />
           <Route path="/cart" element={<CartContainer />} />
         </Routes>
+        </CartProvider>
       </CssBaseline>
     </BrowserRouter>
   );
