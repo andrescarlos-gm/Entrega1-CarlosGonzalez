@@ -36,10 +36,12 @@ const Cart = () => {
   const handleClose = () => setOpen(false);
   const calculateTotal = (items) =>
     items.reduce((acc, item) => acc + item.quantity * item.price, 0);
-
+  function currencyFormat(num) {
+    return "$ " + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+  }
   return (
     <div>
-      <Button onClick={handleOpen}>Your products in Cart</Button>
+      <Button size="medium" color="primary" variant="contained"   onClick={handleOpen}>Proceed to checkout</Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -75,9 +77,9 @@ const Cart = () => {
                   <TableRow key={row.name}>
                     <TableCell>{row.name}</TableCell>
                     <TableCell align="right">{row.quantity}</TableCell>
-                    <TableCell align="right">{row.price}</TableCell>
+                    <TableCell align="right">{currencyFormat(row.price)}</TableCell>
                     <TableCell align="right">
-                      {row.quantity * row.price}
+                      {currencyFormat(row.quantity * row.price)}
                     </TableCell>
                   </TableRow>
                 ))}
@@ -85,7 +87,7 @@ const Cart = () => {
                   <TableCell rowSpan={3} />
                   <TableCell colSpan={2}>Subtotal</TableCell>
                   <TableCell align="right">
-                    {calculateTotal(cartList)}
+                    {currencyFormat(calculateTotal(cartList))}
                   </TableCell>
                 </TableRow>
                 <TableRow>
@@ -94,14 +96,15 @@ const Cart = () => {
                     0
                   )} %`}</TableCell>
                   <TableCell align="right">
-                    {calculateTotal(cartList) * TAX_RATE}
+                    {currencyFormat(calculateTotal(cartList) * TAX_RATE)}
                   </TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell colSpan={2}>Total</TableCell>
                   <TableCell align="right">
-                    {calculateTotal(cartList) +
-                      calculateTotal(cartList) * TAX_RATE}
+                    {" "}
+                    {currencyFormat(calculateTotal(cartList) +
+                      calculateTotal(cartList) * TAX_RATE)}
                   </TableCell>
                 </TableRow>
               </TableBody>

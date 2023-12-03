@@ -1,11 +1,12 @@
 import { Box, TextField, CardActions } from "@mui/material";
 import { Button, Grid } from "@mui/material";
 import { useState, useContext } from "react";
-import CartContext from "../../context/CartContext"
+import CartContext from "../../context/CartContext";
+import Cart from "../Cart/Cart";
 
-export default function ItemCount({ stock , id, image, name, price }) {
+export default function ItemCount({ stock, id, image, name, price }) {
   const [num, setNum] = useState(1);
-  
+
   const handleChange = (e) => {
     const regex = /^[0-9\b]+$/;
     if (e.target.value === "" || regex.test(e.target.value)) {
@@ -13,21 +14,21 @@ export default function ItemCount({ stock , id, image, name, price }) {
     }
   };
 
-  const { addToCart} = useContext(CartContext)
+  const { addToCart } = useContext(CartContext);
 
-  const handleAddToCart = ()=>{
+  const handleAddToCart = () => {
     addToCart({
-      id: (parseInt(id)),
-      quantity: (parseInt(num)),
-      image ,
-      name ,
-      price
-    })
-  }
+      id: parseInt(id),
+      quantity: parseInt(num),
+      image,
+      name,
+      price,
+    });
+  };
   return (
-    <Grid item xs={8}>
+    <Grid>
       <CardActions>
-        <Box component="form">
+        <Box component="form" minWidth="100px">
           <TextField
             type="number"
             id="outlined-basic"
@@ -38,10 +39,15 @@ export default function ItemCount({ stock , id, image, name, price }) {
             value={num}
           />
         </Box>
-        <Button size="medium" color="secondary" variant="contained" onClick={handleAddToCart} >
+        <Button
+          size="medium"
+          color="secondary"
+          variant="contained"
+          onClick={handleAddToCart}
+        >
           Add to Cart
         </Button>
-        
+        <Cart />
       </CardActions>
     </Grid>
   );
