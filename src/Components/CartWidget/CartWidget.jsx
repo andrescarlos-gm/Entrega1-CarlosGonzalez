@@ -6,7 +6,9 @@ export default function CartWidget() {
     <div className="cart">
       <img src={cart} alt="cart" width="45" height="45" />
       <div className="centred">
-        <span className="circle">1</span>
+        <span className="circle">
+        2
+        </span>
       </div>
     </div>
   );

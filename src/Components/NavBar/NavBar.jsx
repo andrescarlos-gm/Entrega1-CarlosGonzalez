@@ -9,7 +9,6 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import PrecisionManufacturingIcon from "@mui/icons-material/PrecisionManufacturing";
 import { useState, useEffect, useContext } from "react";
-import CartContext from "../../context/CartContext";
 import CartWidget from "../CartWidget/CartWidget";
 
 function NavBar() {

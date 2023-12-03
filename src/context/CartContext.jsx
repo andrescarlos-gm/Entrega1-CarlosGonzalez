@@ -29,11 +29,8 @@ export const CartProvider = ({ children }) => {
     // Guarda el estado del carrito en localStorage cada vez que cambie
     localStorage.setItem("cartProducts", JSON.stringify(cartList));
   }, [cartList]);
-
-  console.log(cartList)
-
   return (
-    <CartContext.Provider value={{ addToCart}}>
+    <CartContext.Provider value={{ cartList, addToCart }}>
       {children}
     </CartContext.Provider>
   );
