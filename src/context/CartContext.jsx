@@ -11,13 +11,15 @@ export const CartProvider = ({ children }) => {
     }
   });
   const addToCart = (product) => {
-    const existingProductIndex = cartList.findIndex((item) => item.id === product.id);
+    const existingProductIndex = cartList.findIndex(
+      (item) => item.id === product.id
+    );
     if (existingProductIndex !== -1) {
       const updatedCart = [...cartList];
       updatedCart[existingProductIndex].quantity += product.quantity;
       setCartList(updatedCart);
-    }
-    else{ const newCartItem = {
+    } else {
+      const newCartItem = {
         ...product,
         uniqueIdentifier: `${product.id}`,
         quantity: product.quantity,
@@ -31,11 +33,18 @@ export const CartProvider = ({ children }) => {
   }, [cartList]);
 
   const removeList = () => {
-    setCartList ([])
-  }
+    setCartList([]);
+  };
 
+  const removeItem = (id) => {
+     const filterCart = cartList.filter(item=>item.id !== id)
+     setCartList(filterCart)
+    console.log(id);
+  };
   return (
-    <CartContext.Provider value={{ cartList, addToCart, removeList }}>
+    <CartContext.Provider
+      value={{ cartList, addToCart, removeItem, removeList }}
+    >
       {children}
     </CartContext.Provider>
   );

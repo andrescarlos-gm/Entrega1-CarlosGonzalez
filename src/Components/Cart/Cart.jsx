@@ -1,6 +1,6 @@
 import CartContext from "../../context/CartContext";
 import { useContext } from "react";
-import { Button, Container, Checkbox } from "@mui/material"; // Asegúrate de importar Checkbox
+import { Button, Container} from "@mui/material"; // Asegúrate de importar Checkbox
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -12,7 +12,6 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import DeleteForever from "@mui/icons-material/DeleteForever";
 
 const TAX_RATE = 0.19;
@@ -36,7 +35,7 @@ const Cart = () => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const { removeList } = useContext(CartContext);
+  const { removeList, removeItem } = useContext(CartContext);
   const calculateTotal = (items) =>
     items.reduce((acc, item) => acc + item.quantity * item.price, 0);
 
@@ -44,8 +43,12 @@ const Cart = () => {
     return "$ " + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
   }
 
-  const handleRemove = () => {
+  const handleRemoveList = () => {
     removeList();
+  };
+
+  const handleRemoveItem = (id) => {
+    removeItem(id)
   };
 
   return (
@@ -94,7 +97,7 @@ const Cart = () => {
                 {cartList.map((row) => (
                   <TableRow key={row.name}>
                     <TableCell>
-                    <DeleteForever/>
+                    <DeleteForever onClick={() => handleRemoveItem(row.id)}/>
 
                     </TableCell>
                     <TableCell>{row.name}</TableCell>
@@ -141,7 +144,7 @@ const Cart = () => {
               size="medium"
               color="primary"
               variant="contained"
-              onClick={handleRemove}
+              onClick={handleRemoveList}
             >
               Clear Cart
             </Button>
