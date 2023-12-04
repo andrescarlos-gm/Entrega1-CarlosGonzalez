@@ -6,8 +6,6 @@ import { Button, CardActionArea, Grid } from "@mui/material";
 import { Link } from "react-router-dom";
 
 export default function Item({ item }) {
-
-
   return (
     <Card sx={{ maxWidth: 345, backgroundColor: "#E5D0CC", width: 450 }}>
       <Link to={`/item/${item.id}`} style={{ textDecoration: "none" }}>
@@ -37,7 +35,7 @@ export default function Item({ item }) {
         alignItems="center"
       >
         <Link to={`/item/${item.id}`}>
-          <Button size="small" color="primary" >
+          <Button size="small" color="primary">
             Learn More
           </Button>
         </Link>

@@ -37,8 +37,8 @@ export const CartProvider = ({ children }) => {
   };
 
   const removeItem = (id) => {
-     const filterCart = cartList.filter(item=>item.id !== id)
-     setCartList(filterCart)
+    const filterCart = cartList.filter((item) => item.id !== id);
+    setCartList(filterCart);
     console.log(id);
   };
   return (

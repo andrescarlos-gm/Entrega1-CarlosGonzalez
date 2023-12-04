@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import ItemCount from "../ItemCount/ItemCount.jsx";
 const url = "https://6544295e5a0b4b04436c18e0.mockapi.io/v1/parallaxHumanoid/";
+import {getFirestore, doc, getDoc} from "firebase/firestore"
 import RingLoader from "react-spinners/RingLoader";
 
 export default function ItemDetailsContainer() {
@@ -32,6 +33,18 @@ export default function ItemDetailsContainer() {
 
     fetchData();
   }, [id]);
+  
+  
+  useEffect(() => {
+    const db = getFirestore();
+
+    const refDoc = doc(db, "570cf506-1eb2-4f0b-b9cd-8bff94c23830", "d3a00839-24ef-452b-8b18-e091d03fbb85")
+    
+    getDoc(refDoc).then((snapshot)=>{
+       console.log(snapshot.data())
+    })
+  },[]);
+//  console.log(item)
 
   if (!item) {
     return (

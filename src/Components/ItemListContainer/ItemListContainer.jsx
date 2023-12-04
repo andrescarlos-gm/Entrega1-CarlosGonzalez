@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import ItemList from "../Itemlist/Itemlist";
 const url = "https://6544295e5a0b4b04436c18e0.mockapi.io/v1/parallaxHumanoid/";
+import {getFirestore, doc, getDoc} from "firebase/firestore"
 
 export default function ItemListContainer() {
   const [items, setItems] = useState([]);

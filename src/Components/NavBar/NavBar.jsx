@@ -8,9 +8,8 @@ import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import PrecisionManufacturingIcon from "@mui/icons-material/PrecisionManufacturing";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import CartWidget from "../CartWidget/CartWidget";
-import CartContext from "../../context/CartContext";
 
 function NavBar() {
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -36,7 +35,6 @@ function NavBar() {
       .catch((error) => console.error("Error", error));
   }, []);
 
-
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -44,7 +42,7 @@ function NavBar() {
           <PrecisionManufacturingIcon
             sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
           />
-          <NavLink to="/" style={{ textDecoration: 'none', color: 'black' }}>
+          <NavLink to="/" style={{ textDecoration: "none", color: "black" }}>
             <Typography
               variant="h5"
               noWrap
@@ -112,14 +110,18 @@ function NavBar() {
                 as={NavLink}
                 key={item}
                 to={`/category/${item}`}
-                style={{ marginRight: "8px", textDecoration: 'none', color: 'black' }}
+                style={{
+                  marginRight: "8px",
+                  textDecoration: "none",
+                  color: "black",
+                }}
                 onClick={handleCloseNavMenu}
               >
                 {item}
               </Link>
             ))}
           </Box>
-          <CartWidget  />
+          <CartWidget />
         </Toolbar>
       </Container>
     </AppBar>

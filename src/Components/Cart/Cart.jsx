@@ -1,7 +1,6 @@
 import CartContext from "../../context/CartContext";
 import { useContext, useState } from "react";
-import { Button, Container} from "@mui/material"; // Asegúrate de importar Checkbox
-import * as React from "react";
+import { Button, Container } from "@mui/material"; // Asegúrate de importar Checkbox
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
@@ -33,12 +32,9 @@ const style = {
 const Cart = () => {
   const { cartList } = useContext(CartContext);
   const [open, setOpen] = useState(false);
-  const [hide, setHide] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const handleHideDetails = () => setHide(true)
-  
   const { removeList, removeItem } = useContext(CartContext);
   const calculateTotal = (items) =>
     items.reduce((acc, item) => acc + item.quantity * item.price, 0);
@@ -52,7 +48,7 @@ const Cart = () => {
   };
 
   const handleRemoveItem = (id) => {
-    removeItem(id)
+    removeItem(id);
   };
 
   return (
@@ -77,94 +73,92 @@ const Cart = () => {
           </Typography>
 
           <Typography id="modal-modal-description" sx={{ mt: 2 }}></Typography>
-            {cartList.length !== 0 ?  (
-          <div>
-          <TableContainer component={Paper} >
-            <Table sx={{ minWidth: 700 }} aria-label="spanning table">
-              <TableHead>
-                <TableRow>
-                  <TableCell align="center"></TableCell>
-                  <TableCell align="center" colSpan={2}>
-                    Details
-                  </TableCell>
-                  <TableCell align="right">Price</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell></TableCell>
-                  <TableCell>Product</TableCell>
-                  <TableCell align="right">Quantity</TableCell>
-                  <TableCell align="right">Unit</TableCell>
-                  <TableCell align="right">Sum</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {cartList.map((row) => (
-                  <TableRow key={row.name}>
-                    <TableCell>
-                    <DeleteForever onClick={() => handleRemoveItem(row.id)}/>
-
-                    </TableCell>
-                    <TableCell>{row.name}</TableCell>
-                    <TableCell align="right">{row.quantity}</TableCell>
-                    <TableCell align="right">
-                      {currencyFormat(row.price)}
-                    </TableCell>
-                    <TableCell align="right">
-                      {currencyFormat(row.quantity * row.price)}
-                    </TableCell>
-                  </TableRow>
-                ))}
-                <TableRow>
-                  <TableCell rowSpan={3} />
-                  <TableCell colSpan={2}>Subtotal</TableCell>
-                  <TableCell align="right">
-                    {currencyFormat(calculateTotal(cartList))}
-                  </TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>Tax</TableCell>
-                  <TableCell align="right">{`${(TAX_RATE * 100).toFixed(
-                    0
-                  )} %`}</TableCell>
-                  <TableCell align="right">
-                    {currencyFormat(calculateTotal(cartList) * TAX_RATE)}
-                  </TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell colSpan={2}>Total</TableCell>
-                  <TableCell align="right">
-                    {" "}
-                    {currencyFormat(
-                      calculateTotal(cartList) +
-                        calculateTotal(cartList) * TAX_RATE
-                    )}
-                  </TableCell>
-                </TableRow>
-              </TableBody>
-            </Table>
-          </TableContainer>
-          <Container>
-            <Button
-              size="medium"
-              color="primary"
-              variant="contained"
-              onClick={handleRemoveList}
-            >
-              Clear Cart
-            </Button>
-            <Button
-              size="medium"
-              color="secondary"
-              variant="contained"
-            >
-              Proceed to Checkout
-            </Button>
-          </Container>
-          </div>) : (
-             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-             <p>No items in cart.</p>
-           </Typography>
-         )}
+          {cartList.length !== 0 ? (
+            <div>
+              <TableContainer component={Paper}>
+                <Table sx={{ minWidth: 700 }} aria-label="spanning table">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell align="center"></TableCell>
+                      <TableCell align="center" colSpan={2}>
+                        Details
+                      </TableCell>
+                      <TableCell align="right">Price</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell></TableCell>
+                      <TableCell>Product</TableCell>
+                      <TableCell align="right">Quantity</TableCell>
+                      <TableCell align="right">Unit</TableCell>
+                      <TableCell align="right">Sum</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {cartList.map((row) => (
+                      <TableRow key={row.name}>
+                        <TableCell>
+                          <DeleteForever
+                            onClick={() => handleRemoveItem(row.id)}
+                          />
+                        </TableCell>
+                        <TableCell>{row.name}</TableCell>
+                        <TableCell align="right">{row.quantity}</TableCell>
+                        <TableCell align="right">
+                          {currencyFormat(row.price)}
+                        </TableCell>
+                        <TableCell align="right">
+                          {currencyFormat(row.quantity * row.price)}
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                    <TableRow>
+                      <TableCell rowSpan={3} />
+                      <TableCell colSpan={2}>Subtotal</TableCell>
+                      <TableCell align="right">
+                        {currencyFormat(calculateTotal(cartList))}
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Tax</TableCell>
+                      <TableCell align="right">{`${(TAX_RATE * 100).toFixed(
+                        0
+                      )} %`}</TableCell>
+                      <TableCell align="right">
+                        {currencyFormat(calculateTotal(cartList) * TAX_RATE)}
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell colSpan={2}>Total</TableCell>
+                      <TableCell align="right">
+                        {" "}
+                        {currencyFormat(
+                          calculateTotal(cartList) +
+                            calculateTotal(cartList) * TAX_RATE
+                        )}
+                      </TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </TableContainer>
+              <Container>
+                <Button
+                  size="medium"
+                  color="primary"
+                  variant="contained"
+                  onClick={handleRemoveList}
+                >
+                  Clear Cart
+                </Button>
+                <Button size="medium" color="secondary" variant="contained">
+                  Proceed to Checkout
+                </Button>
+              </Container>
+            </div>
+          ) : (
+            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+              <p>No items in cart.</p>
+            </Typography>
+          )}
         </Box>
       </Modal>
     </div>
