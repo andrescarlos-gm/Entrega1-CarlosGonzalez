@@ -1,6 +1,6 @@
 import CartContext from "../../context/CartContext";
 import { useContext } from "react";
-import { Button } from "@mui/material";
+import { Button, Container } from "@mui/material";
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -30,18 +30,25 @@ const style = {
 };
 
 const Cart = () => {
+
   const { cartList } = useContext(CartContext);
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const { removeList } = useContext(CartContext);
   const calculateTotal = (items) =>
     items.reduce((acc, item) => acc + item.quantity * item.price, 0);
   function currencyFormat(num) {
     return "$ " + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
   }
+  const handleRemove = () => {
+    removeList()
+  }
+
+
   return (
     <div>
-      <Button size="medium" color="primary" variant="contained"   onClick={handleOpen}>Proceed to checkout</Button>
+      <Button size="medium" color="primary" variant="contained"   onClick={handleOpen}>View Cart</Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -110,6 +117,21 @@ const Cart = () => {
               </TableBody>
             </Table>
           </TableContainer>
+          <Container>
+          <Button
+          size="medium"
+          color="primary"
+          variant="contained"
+          onClick={handleRemove}
+        >          Clear Cart
+        </Button>
+        <Button
+          size="medium"
+          color="secondary"
+          variant="contained"
+        >          Proceed to Checkout
+        </Button>
+        </Container>
         </Box>
       </Modal>
     </div>
