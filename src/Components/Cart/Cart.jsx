@@ -1,6 +1,6 @@
 import CartContext from "../../context/CartContext";
 import { useContext } from "react";
-import { Button, Container } from "@mui/material";
+import { Button, Container, Checkbox } from "@mui/material"; // Asegúrate de importar Checkbox
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -12,6 +12,8 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import DeleteForever from "@mui/icons-material/DeleteForever";
 
 const TAX_RATE = 0.19;
 
@@ -30,7 +32,6 @@ const style = {
 };
 
 const Cart = () => {
-
   const { cartList } = useContext(CartContext);
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -38,17 +39,25 @@ const Cart = () => {
   const { removeList } = useContext(CartContext);
   const calculateTotal = (items) =>
     items.reduce((acc, item) => acc + item.quantity * item.price, 0);
+
   function currencyFormat(num) {
     return "$ " + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
   }
-  const handleRemove = () => {
-    removeList()
-  }
 
+  const handleRemove = () => {
+    removeList();
+  };
 
   return (
     <div>
-      <Button size="medium" color="primary" variant="contained"   onClick={handleOpen}>View Cart</Button>
+      <Button
+        size="medium"
+        color="primary"
+        variant="contained"
+        onClick={handleOpen}
+      >
+        View Cart
+      </Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -67,12 +76,14 @@ const Cart = () => {
             <Table sx={{ minWidth: 700 }} aria-label="spanning table">
               <TableHead>
                 <TableRow>
-                  <TableCell align="center" colSpan={3}>
+                  <TableCell align="center"></TableCell>
+                  <TableCell align="center" colSpan={2}>
                     Details
                   </TableCell>
                   <TableCell align="right">Price</TableCell>
                 </TableRow>
                 <TableRow>
+                  <TableCell></TableCell>
                   <TableCell>Product</TableCell>
                   <TableCell align="right">Quantity</TableCell>
                   <TableCell align="right">Unit</TableCell>
@@ -82,9 +93,15 @@ const Cart = () => {
               <TableBody>
                 {cartList.map((row) => (
                   <TableRow key={row.name}>
+                    <TableCell>
+                    <DeleteForever/>
+
+                    </TableCell>
                     <TableCell>{row.name}</TableCell>
                     <TableCell align="right">{row.quantity}</TableCell>
-                    <TableCell align="right">{currencyFormat(row.price)}</TableCell>
+                    <TableCell align="right">
+                      {currencyFormat(row.price)}
+                    </TableCell>
                     <TableCell align="right">
                       {currencyFormat(row.quantity * row.price)}
                     </TableCell>
@@ -110,28 +127,32 @@ const Cart = () => {
                   <TableCell colSpan={2}>Total</TableCell>
                   <TableCell align="right">
                     {" "}
-                    {currencyFormat(calculateTotal(cartList) +
-                      calculateTotal(cartList) * TAX_RATE)}
+                    {currencyFormat(
+                      calculateTotal(cartList) +
+                        calculateTotal(cartList) * TAX_RATE
+                    )}
                   </TableCell>
                 </TableRow>
               </TableBody>
             </Table>
           </TableContainer>
           <Container>
-          <Button
-          size="medium"
-          color="primary"
-          variant="contained"
-          onClick={handleRemove}
-        >          Clear Cart
-        </Button>
-        <Button
-          size="medium"
-          color="secondary"
-          variant="contained"
-        >          Proceed to Checkout
-        </Button>
-        </Container>
+            <Button
+              size="medium"
+              color="primary"
+              variant="contained"
+              onClick={handleRemove}
+            >
+              Clear Cart
+            </Button>
+            <Button
+              size="medium"
+              color="secondary"
+              variant="contained"
+            >
+              Proceed to Checkout
+            </Button>
+          </Container>
         </Box>
       </Modal>
     </div>
