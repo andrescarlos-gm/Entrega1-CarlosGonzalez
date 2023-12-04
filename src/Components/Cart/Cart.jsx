@@ -1,5 +1,5 @@
 import CartContext from "../../context/CartContext";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Button, Container} from "@mui/material"; // Asegúrate de importar Checkbox
 import * as React from "react";
 import Box from "@mui/material/Box";
@@ -32,9 +32,13 @@ const style = {
 
 const Cart = () => {
   const { cartList } = useContext(CartContext);
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [hide, setHide] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const handleHideDetails = () => setHide(true)
+  
   const { removeList, removeItem } = useContext(CartContext);
   const calculateTotal = (items) =>
     items.reduce((acc, item) => acc + item.quantity * item.price, 0);
@@ -72,10 +76,10 @@ const Cart = () => {
             Your products in Cart
           </Typography>
 
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            {cartList.length === 0 ? <p>No items in cart.</p> : null}
-          </Typography>
-          <TableContainer component={Paper}>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}></Typography>
+            {cartList.length !== 0 ?  (
+          <div>
+          <TableContainer component={Paper} >
             <Table sx={{ minWidth: 700 }} aria-label="spanning table">
               <TableHead>
                 <TableRow>
@@ -156,6 +160,11 @@ const Cart = () => {
               Proceed to Checkout
             </Button>
           </Container>
+          </div>) : (
+             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+             <p>No items in cart.</p>
+           </Typography>
+         )}
         </Box>
       </Modal>
     </div>
