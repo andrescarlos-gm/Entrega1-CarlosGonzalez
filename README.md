@@ -17,7 +17,7 @@ To install dependencies and run the site:
 
 ### Notes
 
-✓ The site is designed for a 1920x1080 screen resolution 
+✓ The site is designed for 1920x1080 screen resolution 
 
 ✓ Live Preview: [Luxury Robot Design](https://parallaxhumanoid.netlify.app)
 
