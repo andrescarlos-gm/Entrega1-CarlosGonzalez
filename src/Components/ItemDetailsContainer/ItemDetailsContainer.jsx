@@ -92,21 +92,21 @@ export default function ItemDetailsContainer() {
             </Typography>
             <Typography variant="body2">{item.ProductDescription}</Typography>
           </CardContent>
-          <Typography gutterBottom variant="h6" component="div" paddingTop={2} paddingLeft={9}>
+          <Typography gutterBottom variant="h6" component="div" paddingLeft={6} >
              Stock available: {item.stock}
             </Typography>
-          <Grid item xs={20}>
-            <ItemCount
+          <Grid item xs={20}>   
+          </Grid>
+        </CardActionArea>
+        <ItemCount
               stock={item.stock}
               id={item.id}
               price={item.price}
               name={item.ProductName}
               image={item.Product}
             />
-            
-          </Grid>
-        </CardActionArea>
       </Card>
+      
     </Grid>
   );
 }
