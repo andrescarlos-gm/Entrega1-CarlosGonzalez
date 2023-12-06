@@ -39,6 +39,7 @@ export default function ItemCount({ stock, id, image, name, price }) {
             value={num}
           />
         </Box>
+        
         <Button
           size="medium"
           color="secondary"

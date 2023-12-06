@@ -38,10 +38,11 @@ export default function ItemDetailsContainer() {
   useEffect(() => {
     const db = getFirestore();
 
-    const refDoc = doc(db, "570cf506-1eb2-4f0b-b9cd-8bff94c23830", "d3a00839-24ef-452b-8b18-e091d03fbb85")
+    const refDoc = doc(db,"parallaxhumanoid","XkfDXoNeA9rF8xo5LaxN")
     
     getDoc(refDoc).then((snapshot)=>{
-       console.log(snapshot.data())
+       const catalog = snapshot.data()
+       console.log(catalog.id)
     })
   },[]);
 //  console.log(item)
@@ -68,6 +69,7 @@ export default function ItemDetailsContainer() {
   }
 
   return (
+    
     <Grid
       container
       spacing={3}
@@ -90,6 +92,9 @@ export default function ItemDetailsContainer() {
             </Typography>
             <Typography variant="body2">{item.ProductDescription}</Typography>
           </CardContent>
+          <Typography gutterBottom variant="h6" component="div" paddingTop={2} paddingLeft={9}>
+             Stock available: {item.stock}
+            </Typography>
           <Grid item xs={20}>
             <ItemCount
               stock={item.stock}
@@ -98,6 +103,7 @@ export default function ItemDetailsContainer() {
               name={item.ProductName}
               image={item.Product}
             />
+            
           </Grid>
         </CardActionArea>
       </Card>
