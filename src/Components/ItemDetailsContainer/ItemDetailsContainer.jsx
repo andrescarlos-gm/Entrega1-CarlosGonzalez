@@ -42,7 +42,7 @@ export default function ItemDetailsContainer() {
     
     getDoc(refDoc).then((snapshot)=>{
        const catalog = snapshot.data()
-       console.log(catalog.id)
+       console.log(catalog)
     })
   },[]);
 //  console.log(item)

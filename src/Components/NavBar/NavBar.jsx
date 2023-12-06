@@ -104,6 +104,7 @@ function NavBar() {
               flexDirection: "row",
               alignItems: "center",
               justifyContent: "center",
+             
             }}
           >
             {uniqueCat.map((item) => (
@@ -116,6 +117,7 @@ function NavBar() {
                   textDecoration: "none",
                   color: "black",
                 }}
+                sx={{ }}
                 onClick={handleCloseNavMenu}
               >
                 {item}
