@@ -1,4 +1,4 @@
-import cart from "../../images/cart.png";
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import "./CartWidget.css";
 import CartContext from "../../context/CartContext";
 import { useContext } from "react";
@@ -9,7 +9,7 @@ export default function CartWidget() {
 
   return (
     <div className="cart">
-      <img src={cart} alt="cart" width="45" height="45" />
+      <ShoppingCartIcon sx={{ "scale": "2.3" }} />
       <div className="centred">
         <span className="circle">{reduce}</span>
       </div>

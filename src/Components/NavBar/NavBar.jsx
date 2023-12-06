@@ -39,9 +39,6 @@ function NavBar() {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <PrecisionManufacturingIcon
-            sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
-          />
           <NavLink to="/" style={{ textDecoration: "none", color: "black" }}>
             <Typography
               variant="h5"
@@ -55,8 +52,12 @@ function NavBar() {
                 letterSpacing: ".3rem",
                 color: "inherit",
                 textDecoration: "none",
+                "&:hover": { color: "grey" },
               }}
             >
+              <PrecisionManufacturingIcon
+                sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
+              />
               parallax_Humanoid
             </Typography>
           </NavLink>

@@ -106,7 +106,7 @@ export default function ItemDetailsContainer() {
               image={item.Product}
             />
       </Card>
-      
+
     </Grid>
   );
 }

@@ -97,7 +97,7 @@ const Cart = () => {
                     {cartList.map((row) => (
                       <TableRow key={row.name}>
                         <TableCell>
-                          <DeleteForever
+                          <DeleteForever sx={{ "& :hover": { color: "blue" } }} 
                             onClick={() => handleRemoveItem(row.id)}
                           />
                         </TableCell>
@@ -156,7 +156,7 @@ const Cart = () => {
             </div>
           ) : (
             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              <p>No items in cart.</p>
+              No items in cart
             </Typography>
           )}
         </Box>
