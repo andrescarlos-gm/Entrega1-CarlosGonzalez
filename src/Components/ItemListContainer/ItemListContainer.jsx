@@ -2,38 +2,51 @@ import "./ItemListContainer.css";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import ItemList from "../Itemlist/Itemlist";
-const url = "https://6544295e5a0b4b04436c18e0.mockapi.io/v1/parallaxHumanoid/";
-import {getFirestore, doc, getDoc} from "firebase/firestore"
+import { getFirestore, getDocs, collection } from "firebase/firestore";
 
 export default function ItemListContainer() {
-  const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [items, setItems] = useState([]);
   const { id } = useParams();
 
   useEffect(() => {
     const fetchData = async () => {
+      const db = getFirestore();
+      const refCollection = collection(db, "parallaxhumanoid");
       try {
-        const response = await fetch(url + (id ? `?category=${id}` : ""));
-        const data = await response.json();
+        const snapshot = await getDocs(refCollection);
+        if (snapshot.size === 0) {
+          console.log("No results");
+        }
         if (id) {
-          const filteredData = data.filter((item) => item.Category === id);
+          const filteredData = snapshot.docs
+            .filter((doc) => doc.data().Category === id)
+            .map((doc) => ({
+              ...doc.data(),
+              uid: doc.id,
+            }));
           setItems(filteredData);
         } else {
-          setItems(data);
+          const itemsData = snapshot.docs.map((doc) => ({
+            ...doc.data(),
+            uid: doc.id,
+          }));
+          setItems(itemsData);
         }
       } catch (error) {
-        console.error("error fetching data:", error);
+        console.error("Error fetching data:", error);
       } finally {
         setLoading(false);
       }
     };
     fetchData();
   }, [id]);
+
   return (
     <div>
       <div className="sectioncontainer">
         <div className="section">
-          <ItemList items={items} loading={loading} />
+          <ItemList loading={loading} items={items} />
         </div>
       </div>
     </div>

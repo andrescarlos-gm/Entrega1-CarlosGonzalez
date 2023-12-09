@@ -6,8 +6,7 @@ import { CardActionArea, Grid } from "@mui/material";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import ItemCount from "../ItemCount/ItemCount.jsx";
-const url = "https://6544295e5a0b4b04436c18e0.mockapi.io/v1/parallaxHumanoid/";
-import {getFirestore, doc, getDoc} from "firebase/firestore"
+import { getFirestore, doc, getDoc } from "firebase/firestore";
 import RingLoader from "react-spinners/RingLoader";
 
 export default function ItemDetailsContainer() {
@@ -15,36 +14,25 @@ export default function ItemDetailsContainer() {
   const { id } = useParams();
 
   useEffect(() => {
-    const fetchData = () => {
-      const promise = new Promise((resolve) => {
-        setTimeout(() => {
-          resolve(url + (id ? `?category=${id}` : ""));
-        }, 2000);
-      });
-
-      promise
-        .then((response) => fetch(response))
-        .then((fetchResponse) => fetchResponse.json())
-        .then((data) => {
-          const filterRes = data.find((item) => item.id == id);
-          setItem(filterRes);
-        });
+    const fetchData = async () => {
+      const db = getFirestore();
+      const refDoc = doc(db, "parallaxhumanoid", id);
+      
+      try {
+        const snapshot = await getDoc(refDoc);
+        if (snapshot.exists()) {
+          const data = snapshot.data();
+          setItem(data);
+        } else {
+          console.log("No such document!");
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
     };
 
     fetchData();
   }, [id]);
-  
-  
-  useEffect(() => {
-    const db = getFirestore();
-
-    const refDoc = doc(db,"parallaxhumanoid","XkfDXoNeA9rF8xo5LaxN")
-    
-    getDoc(refDoc).then((snapshot)=>{
-       const catalog = snapshot.data()
-       console.log(catalog)
-    })
-  },[]);
 
   if (!item) {
     return (
@@ -66,9 +54,7 @@ export default function ItemDetailsContainer() {
       </Grid>
     );
   }
-
   return (
-    
     <Grid
       container
       spacing={3}
@@ -91,21 +77,19 @@ export default function ItemDetailsContainer() {
             </Typography>
             <Typography variant="body2">{item.ProductDescription}</Typography>
           </CardContent>
-          <Typography gutterBottom variant="h6" component="div" paddingLeft={6} >
-             Stock available: {item.stock}
-            </Typography>
-          <Grid item xs={20}>   
-          </Grid>
+          <Typography gutterBottom variant="h6" component="div" paddingLeft={6}>
+            Stock available: {item.stock}
+          </Typography>
+          <Grid item xs={20}></Grid>
         </CardActionArea>
         <ItemCount
-              stock={item.stock}
-              id={item.id}
-              price={item.price}
-              name={item.ProductName}
-              image={item.Product}
-            />
+          stock={item.stock}
+          id={id}
+          price={item.price}
+          name={item.ProductName}
+          image={item.Product}
+        />
       </Card>
-
     </Grid>
   );
 }

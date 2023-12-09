@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 export default function Item({ item }) {
   return (
     <Card sx={{ maxWidth: 345, backgroundColor: "#E5D0CC", width: 450 }}>
-      <Link to={`/item/${item.id}`} style={{ textDecoration: "none" }}>
+      <Link to={`/item/${item.uid}`} style={{ textDecoration: "none" }}>
         <CardActionArea>
           <CardMedia
             component="img"
@@ -34,7 +34,7 @@ export default function Item({ item }) {
         justifyContent="space-between"
         alignItems="center"
       >
-        <Link to={`/item/${item.id}`}>
+        <Link to={`/item/${item.uid}`}>
           <Button size="small" color="primary">
             Learn More
           </Button>

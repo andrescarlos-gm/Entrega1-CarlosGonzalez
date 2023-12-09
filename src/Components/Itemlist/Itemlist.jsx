@@ -1,7 +1,6 @@
 import Item from "../Item/Item.jsx";
 
 export default function ItemList({ items }) {
-  console.log( items)
   return (
     <div
       style={{
