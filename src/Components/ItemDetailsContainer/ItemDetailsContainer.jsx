@@ -45,7 +45,6 @@ export default function ItemDetailsContainer() {
        console.log(catalog)
     })
   },[]);
-//  console.log(item)
 
   if (!item) {
     return (

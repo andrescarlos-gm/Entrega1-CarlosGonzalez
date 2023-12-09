@@ -1,6 +1,7 @@
 import Item from "../Item/Item.jsx";
 
 export default function ItemList({ items }) {
+  console.log( items)
   return (
     <div
       style={{
@@ -13,7 +14,8 @@ export default function ItemList({ items }) {
       }}
     >
       {items.map((product) => (
-        <Item key={product.id} item={product} />
+        <Item key={product.id} item={product}  />
+        
       ))}
     </div>
   );
