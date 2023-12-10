@@ -30,7 +30,7 @@ const style = {
 };
 
 const Cart = () => {
-  const { cartList, open, openModal, closeModal, removeList, removeItem } = useContext(CartContext);
+  const { cartList, open, closeModal, removeList, removeItem } = useContext(CartContext);
   // const [open, setOpen] = useState(false);
   const handleClose = () => closeModal();
 
