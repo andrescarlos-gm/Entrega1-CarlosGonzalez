@@ -1,6 +1,6 @@
 import CartContext from "../../context/CartContext";
-import { useContext, useState } from "react";
-import { Button, Container } from "@mui/material"; // Asegúrate de importar Checkbox
+import { useContext } from "react";
+import { Button, Container } from "@mui/material";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
@@ -30,12 +30,10 @@ const style = {
 };
 
 const Cart = () => {
-  const { cartList } = useContext(CartContext);
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const { cartList, open, openModal, closeModal, removeList, removeItem } = useContext(CartContext);
+  // const [open, setOpen] = useState(false);
+  const handleClose = () => closeModal();
 
-  const { removeList, removeItem } = useContext(CartContext);
   const calculateTotal = (items) =>
     items.reduce((acc, item) => acc + item.quantity * item.price, 0);
 
@@ -53,14 +51,6 @@ const Cart = () => {
 
   return (
     <div>
-      <Button
-        size="medium"
-        color="primary"
-        variant="contained"
-        onClick={handleOpen}
-      >
-        View Cart
-      </Button>
       <Modal
         open={open}
         onClose={handleClose}

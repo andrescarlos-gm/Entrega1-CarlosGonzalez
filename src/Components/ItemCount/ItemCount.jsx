@@ -6,6 +6,7 @@ import Cart from "../Cart/Cart";
 
 export default function ItemCount({ stock, id, image, name, price }) {
   const [num, setNum] = useState(1);
+  const { addToCart, openModal } = useContext(CartContext);
 
   const handleChange = (e) => {
     const regex = /^[0-9\b]+$/;
@@ -13,8 +14,6 @@ export default function ItemCount({ stock, id, image, name, price }) {
       setNum(e.target.value);
     }
   };
-
-  const { addToCart } = useContext(CartContext);
 
   const handleAddToCart = () => {
     addToCart({
@@ -25,6 +24,11 @@ export default function ItemCount({ stock, id, image, name, price }) {
       price,
     });
   };
+
+  const handleCartClick = () => {
+  openModal(true)
+  };
+
   return (
     <Grid>
       <CardActions>
@@ -48,7 +52,16 @@ export default function ItemCount({ stock, id, image, name, price }) {
         >
           Add to Cart
         </Button>
-        <Cart />
+        <Button
+        size="medium"
+        color="primary"
+        variant="contained"
+        onClick={handleCartClick}
+      >
+        View Cart
+        </Button>
+        {/* Render the Cart component only when open state is true */}
+        {open && <Cart />}
       </CardActions>
     </Grid>
   );

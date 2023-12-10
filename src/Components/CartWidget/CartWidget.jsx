@@ -3,12 +3,18 @@ import "./CartWidget.css";
 import CartContext from "../../context/CartContext";
 import { useContext } from "react";
 
-export default function CartWidget() {
-  const { cartList } = useContext(CartContext);
-  const reduce = cartList.reduce((acc, act) => acc + act.quantity, 0);
 
+export default function CartWidget() {
+  const { cartList, openModal } = useContext(CartContext);
+
+  const reduce = cartList.reduce((acc, act) => acc + act.quantity, 0);
+  
+  const handleCartClick = () => {
+    openModal(true)
+    };
+  
   return (
-    <div className="cart">
+    <div className="cart" onClick={handleCartClick}>
       <ShoppingCartIcon sx={{ "scale": "2.3" }} />
       <div className="centred">
         <span className="circle">{reduce}</span>
