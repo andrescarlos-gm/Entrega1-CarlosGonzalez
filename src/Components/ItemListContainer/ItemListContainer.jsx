@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import ItemList from "../Itemlist/Itemlist";
 import { getFirestore, getDocs, collection } from "firebase/firestore";
+import ItemCount from "../ItemCount/ItemCount";
 
 export default function ItemListContainer() {
   const [loading, setLoading] = useState(true);

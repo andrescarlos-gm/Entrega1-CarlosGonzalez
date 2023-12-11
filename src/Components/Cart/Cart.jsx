@@ -12,6 +12,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import DeleteForever from "@mui/icons-material/DeleteForever";
+import CloseIcon from '@mui/icons-material/Close';
 
 const TAX_RATE = 0.19;
 
@@ -31,9 +32,7 @@ const style = {
 
 const Cart = () => {
   const { cartList, open, closeModal, removeList, removeItem } = useContext(CartContext);
-  // const [open, setOpen] = useState(false);
-  const handleClose = () => closeModal();
-
+  
   const calculateTotal = (items) =>
     items.reduce((acc, item) => acc + item.quantity * item.price, 0);
 
@@ -49,6 +48,9 @@ const Cart = () => {
     removeItem(id);
   };
 
+  const handleClose = () => {
+    closeModal();
+  }
   return (
     <div>
       <Modal
@@ -58,6 +60,12 @@ const Cart = () => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
+
+        <Box sx={{ display: "flex", justifyContent: "end" }}>
+            <CloseIcon  onClick={handleClose} />
+          </Box>
+
+
           <Typography id="modal-modal-title" variant="h6" component="h2">
             Your products in Cart
           </Typography>
@@ -140,7 +148,7 @@ const Cart = () => {
                   Clear Cart
                 </Button>
                 <Button size="medium" color="secondary" variant="contained">
-                  Proceed to Checkout
+                  Buy Now
                 </Button>
               </Container>
             </div>
