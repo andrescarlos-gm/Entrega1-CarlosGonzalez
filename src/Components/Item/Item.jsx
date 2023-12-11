@@ -17,8 +17,8 @@ export default function Item({ item }) {
             alt="image"
           />
 
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="div" color="black">
+          <CardContent style={{ display: 'flex', flexDirection: 'column', flexGrow: 1, height: '250px' }}>
+            <Typography gutterBottom variant="h5" component="div" color="black" paddingBottom={3}>
               {item.ProductName}
             </Typography>
             <Typography variant="body2" color="text.secondary">
