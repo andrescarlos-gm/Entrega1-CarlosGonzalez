@@ -1,6 +1,6 @@
 import CartContext from "../../context/CartContext";
 import { useContext } from "react";
-import { Button, Container } from "@mui/material";
+import { Button, Container, Divider } from "@mui/material";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
@@ -12,8 +12,11 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import DeleteForever from "@mui/icons-material/DeleteForever";
-import CloseIcon from '@mui/icons-material/Close';
-
+import CloseIcon from "@mui/icons-material/Close";
+import FormControl from "@mui/material/FormControl";
+import FormHelperText from "@mui/material/FormHelperText";
+import Input from "@mui/material/Input";
+import InputLabel from "@mui/material/InputLabel";
 const TAX_RATE = 0.19;
 
 const style = {
@@ -31,8 +34,9 @@ const style = {
 };
 
 const Cart = () => {
-  const { cartList, open, closeModal, removeList, removeItem } = useContext(CartContext);
-  
+  const { cartList, open, closeModal, removeList, removeItem } =
+    useContext(CartContext);
+
   const calculateTotal = (items) =>
     items.reduce((acc, item) => acc + item.quantity * item.price, 0);
 
@@ -50,7 +54,7 @@ const Cart = () => {
 
   const handleClose = () => {
     closeModal();
-  }
+  };
   return (
     <div>
       <Modal
@@ -60,11 +64,9 @@ const Cart = () => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-
-        <Box sx={{ display: "flex", justifyContent: "end" }}>
-            <CloseIcon  onClick={handleClose} />
+          <Box sx={{ display: "flex", justifyContent: "end" }}>
+            <CloseIcon onClick={handleClose} />
           </Box>
-
 
           <Typography id="modal-modal-title" variant="h6" component="h2">
             Your products in Cart
@@ -95,7 +97,8 @@ const Cart = () => {
                     {cartList.map((row) => (
                       <TableRow key={row.name}>
                         <TableCell>
-                          <DeleteForever sx={{ "& :hover": { color: "blue" } }} 
+                          <DeleteForever
+                            sx={{ "& :hover": { color: "blue" } }}
                             onClick={() => handleRemoveItem(row.id)}
                           />
                         </TableCell>
@@ -138,6 +141,32 @@ const Cart = () => {
                   </TableBody>
                 </Table>
               </TableContainer>
+
+              <Divider />
+
+              <Box
+  component="form"
+  sx={{
+    "& > :not(style)": { m: 1 },
+    backgroundColor: "grey",
+    display: "flex",  // Establecer el display a flex
+    justifyContent: "center",  // Centrar horizontalmente
+    alignItems: "center",  // Centrar verticalmente
+  }}
+  noValidate
+  autoComplete="off"
+>
+                <FormControl>
+                  <Input id="name" aria-describedby="my-helper-text" label="Filled" variant="filled"   placeholder="Your Name"/>
+                  <Input id="lastname" aria-describedby="my-helper-text" label="Filled" variant="filled"  placeholder="Your LastName"/>
+                  <Input id="Phone" aria-describedby="my-helper-text" label="Filled" variant="filled"  placeholder="Your Phone number"/>
+                  <Input id="mail" aria-describedby="my-helper-text" label="Filled" variant="filled"  placeholder="Email address" />
+                  <Input id="mail" aria-describedby="my-helper-text" label="Filled" variant="filled"  placeholder="Email address" />
+                  <FormHelperText id="my-helper-text">
+                    We'll never share your data.
+                  </FormHelperText>
+                </FormControl>
+              </Box>
               <Container>
                 <Button
                   size="medium"
@@ -147,7 +176,12 @@ const Cart = () => {
                 >
                   Clear Cart
                 </Button>
-                <Button size="medium" color="secondary" variant="contained">
+                <Button
+                  size="medium"
+                  color="secondary"
+                  variant="contained"
+                  disabled={true}
+                >
                   Buy Now
                 </Button>
               </Container>

@@ -6,7 +6,6 @@ import {
   CardContent,
   CardMedia,
   Typography,
-  Button,
 } from "@mui/material";
 import ItemCount from "../ItemCount/ItemCount.jsx";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
@@ -19,7 +18,9 @@ export default function ItemDetailsContainer() {
   const [total, setTotal] = useState(0);
   const { id } = useParams();
   const { cartList } = useContext(CartContext);
-
+  function currencyFormat(num) {
+    return "$ " + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+  }
   useEffect(() => {
     const fetchData = async () => {
       const db = getFirestore();
@@ -93,7 +94,7 @@ export default function ItemDetailsContainer() {
       <Grid item xs={6}>
         <Card
           sx={{
-            maxWidth: 600,
+            maxWidth: 500,
             backgroundColor: "#E5D0CC",
             borderRadius: "16px",
           }}
@@ -122,7 +123,7 @@ export default function ItemDetailsContainer() {
             component="div"
             paddingTop={"30px"}
           >
-            ${item.price}
+            {currencyFormat(item.price)}
           </Typography>
           <Typography gutterBottom variant="h6" component="div">
             Stock available: {item.stock - total}

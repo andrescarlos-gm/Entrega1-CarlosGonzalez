@@ -33,7 +33,7 @@ export default function ItemCount({ stock, id, image, name, price }) {
    }, [cartList, id]);
   const handleAddToCart = () => {
     
-    if ((stock - total)-num > 0 )
+    if ((stock - total)-num > -1 )
     addToCart({
       id: parseInt(id),
       quantity: parseInt(num),
@@ -42,8 +42,6 @@ export default function ItemCount({ stock, id, image, name, price }) {
       price,
     });
 
-
-
   };
 
   const handleCartClick = () => {
@@ -51,8 +49,6 @@ export default function ItemCount({ stock, id, image, name, price }) {
   };
 
 const isDisabled = (stock-total) <= 0;
-
-
 
   return (
     <Grid>
