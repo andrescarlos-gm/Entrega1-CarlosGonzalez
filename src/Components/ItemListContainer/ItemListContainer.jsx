@@ -1,14 +1,15 @@
 import "./ItemListContainer.css";
-import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useState, useEffect, useContext } from "react";
+import { useParams,  } from "react-router-dom";
 import ItemList from "../Itemlist/Itemlist";
 import { getFirestore, getDocs, collection } from "firebase/firestore";
-import ItemCount from "../ItemCount/ItemCount";
+import CartContext from "../../context/CartContext";
 
 export default function ItemListContainer() {
   const [loading, setLoading] = useState(true);
   const [items, setItems] = useState([]);
   const { id } = useParams();
+  const {  open } = useContext(CartContext);
 
   useEffect(() => {
     const fetchData = async () => {

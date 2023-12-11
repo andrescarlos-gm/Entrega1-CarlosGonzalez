@@ -5,7 +5,7 @@ import { useContext } from "react";
 import Cart from "../Cart/Cart";
 
 export default function CartWidget() {
-  const { cartList, openModal } = useContext(CartContext);
+  const { cartList, openModal, closeModal, open } = useContext(CartContext);
 
   const reduce = cartList.reduce((acc, act) => acc + act.quantity, 0);
 
