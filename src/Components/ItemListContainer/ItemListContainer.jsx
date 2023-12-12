@@ -1,6 +1,5 @@
-import "./ItemListContainer.css";
 import { useState, useEffect, useContext } from "react";
-import { useParams,  } from "react-router-dom";
+import { useParams  } from "react-router-dom";
 import ItemList from "../Itemlist/Itemlist";
 import { getFirestore, getDocs, collection } from "firebase/firestore";
 import CartContext from "../../context/CartContext";

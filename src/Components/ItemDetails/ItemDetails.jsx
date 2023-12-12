@@ -13,7 +13,7 @@ import RingLoader from "react-spinners/RingLoader";
 import Divider from "@mui/material/Divider";
 import CartContext from "../../context/CartContext.jsx";
 
-export default function ItemDetailsContainer() {
+export default function ItemDetails() {
   const [item, setItem] = useState(null);
   const [total, setTotal] = useState(0);
   const { id } = useParams();
