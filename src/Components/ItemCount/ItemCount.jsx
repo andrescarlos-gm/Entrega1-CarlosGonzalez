@@ -2,13 +2,13 @@ import { Box, TextField, CardActions } from "@mui/material";
 import { Button, Grid } from "@mui/material";
 import { useState, useContext, useEffect } from "react";
 import CartContext from "../../context/CartContext";
-import Cart from "../Cart/Cart";
+import { NavLink, Link } from "react-router-dom";
 
 
 export default function ItemCount({ stock, id, image, name, price }) {
   const [num, setNum] = useState(1);
   const [total, setTotal] = useState(0);
-  const { cartList, addToCart, openModal, open } = useContext(CartContext);
+  const { cartList, addToCart } = useContext(CartContext);
 
   const handleChange = (e) => {
     const regex = /^[0-9\b]+$/;
@@ -17,8 +17,6 @@ export default function ItemCount({ stock, id, image, name, price }) {
       setNum(e.target.value);
     }
   };
-
-
 
    useEffect(()=>{
      if (id) {
@@ -42,10 +40,6 @@ export default function ItemCount({ stock, id, image, name, price }) {
       price,
     });
 
-  };
-
-  const handleCartClick = () => {
-  openModal(true)
   };
 
 const isDisabled = (stock-total) <= 0;
@@ -74,15 +68,17 @@ const isDisabled = (stock-total) <= 0;
         >
           Add to Cart
         </Button>
+        <Link as={NavLink} to={`/cart`}>
         <Button
         size="medium"
         color="primary"
         variant="contained"
-        onClick={handleCartClick}
       >
         View Cart
         </Button>
-        {open && <Cart />}
+</Link>
+
+
       </CardActions>
     </Grid>
   );

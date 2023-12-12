@@ -10,6 +10,7 @@ import Container from "@mui/material/Container";
 import PrecisionManufacturingIcon from "@mui/icons-material/PrecisionManufacturing";
 import { useState, useEffect } from "react";
 import CartWidget from "../CartWidget/CartWidget";
+import { getFirestore, getDocs, collection } from "firebase/firestore";
 
 function NavBar() {
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -22,19 +23,28 @@ function NavBar() {
     setAnchorElNav(null);
   };
   const [uniqueCat, setUniqueCat] = useState([]);
+
   useEffect(() => {
-    const url =
-      "https://6544295e5a0b4b04436c18e0.mockapi.io/v1/parallaxHumanoid/";
-    fetch(url)
-      .then((response) => response.json())
-      .then((data) => {
+    const fetchData = async () => {
+      try {
+        const db = getFirestore();
+        const refCollection = collection(db, "parallaxhumanoid");
+        const snapshot = await getDocs(refCollection);
+
+        const data = snapshot.docs.map((doc) => doc.data());
+
         const categories = data.map((item) => item.Category);
         const uniqueCat = [...new Set(categories)];
         setUniqueCat(uniqueCat);
-      })
-      .catch((error) => console.error("Error", error));
+      } catch (error) {
+        console.error("Error fetching data", error);
+      }
+    };
+
+    fetchData();
   }, []);
 
+  console.log(uniqueCat);
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -104,7 +114,6 @@ function NavBar() {
               flexDirection: "row",
               alignItems: "center",
               justifyContent: "center",
-             
             }}
           >
             {uniqueCat.map((item) => (
@@ -117,7 +126,7 @@ function NavBar() {
                   textDecoration: "none",
                   color: "black",
                 }}
-                sx={{ }}
+                sx={{}}
                 onClick={handleCloseNavMenu}
               >
                 {item}
