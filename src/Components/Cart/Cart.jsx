@@ -31,6 +31,7 @@ const style = {
   pt: 2,
   px: 4,
   pb: 3,
+  overflow: 'auto'
 };
 
 const Cart = () => {
@@ -62,6 +63,7 @@ const Cart = () => {
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
+
       >
         <Box sx={style}>
           <Box sx={{ display: "flex", justifyContent: "end" }}>
@@ -148,19 +150,26 @@ const Cart = () => {
   component="form"
   sx={{
     "& > :not(style)": { m: 1 },
-    backgroundColor: "grey",
+    backgroundColor: "#dbd9d9",
     display: "flex",  // Establecer el display a flex
-    justifyContent: "center",  // Centrar horizontalmente
-    alignItems: "center",  // Centrar verticalmente
+    flexDirection: 'column'
   }}
   noValidate
   autoComplete="off"
 >
                 <FormControl>
                   <Input id="name" aria-describedby="my-helper-text" label="Filled" variant="filled"   placeholder="Your Name"/>
+                  </FormControl>
+                  <FormControl>
                   <Input id="lastname" aria-describedby="my-helper-text" label="Filled" variant="filled"  placeholder="Your LastName"/>
+                  </FormControl>
+                  <FormControl>
                   <Input id="Phone" aria-describedby="my-helper-text" label="Filled" variant="filled"  placeholder="Your Phone number"/>
+                  </FormControl>
+                  <FormControl>
                   <Input id="mail" aria-describedby="my-helper-text" label="Filled" variant="filled"  placeholder="Email address" />
+                  </FormControl>
+                  <FormControl>
                   <Input id="mail" aria-describedby="my-helper-text" label="Filled" variant="filled"  placeholder="Email address" />
                   <FormHelperText id="my-helper-text">
                     We'll never share your data.

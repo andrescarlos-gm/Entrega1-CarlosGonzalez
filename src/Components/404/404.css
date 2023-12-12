@@ -1,0 +1,18 @@
+body,
+html {
+    margin: 0
+}
+
+.bgimg {
+    position:relative;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
+.bgimg {
+    background-image: url("../../images/404.jpg");
+    min-height: 100vh;
+}

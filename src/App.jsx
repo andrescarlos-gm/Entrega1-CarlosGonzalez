@@ -1,4 +1,5 @@
 import NavBar from "./Components/NavBar/NavBar.jsx";
+import NotFound from "./Components/404/404.jsx";
 import ItemListContainer from "./Components/ItemListContainer/ItemListContainer.jsx";
 import ItemDetailsContainer from "./Components/ItemDetailsContainer/ItemDetailsContainer.jsx"
 import { CssBaseline } from "@mui/material";
@@ -36,7 +37,7 @@ function App() {
           <Route path="/" element={<ItemListContainer />} />
           <Route path="/category/:id" element={<ItemListContainer />} />
           <Route path="/item/:id" element={<ItemDetailsContainer/>} />
-          <Route path="*" element={<>404</>} />
+          <Route path="*" element={<NotFound />} />
           <Route path="/cart" element={<CartContainer  />} />
         </Routes>
         </CartProvider>
