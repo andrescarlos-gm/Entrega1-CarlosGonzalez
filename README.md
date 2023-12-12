@@ -19,7 +19,7 @@ To install dependencies and run the site:
 
 ✓ The site is designed for 1920x1080 screen resolution 
 
-✓ Live Preview: [Luxury Robot Design]([https://parallaxhumanoid.netlify.app](https://parallax-humanoid.web.app/))
+✓ Live Preview: [Luxury Robot Design]([https://parallaxhumanoid.web.app](https://parallax-humanoid.web.app/))
 
 ✓ The GitHub repository can be found at [parallax_Humanoid Github Project](https://github.com/andrescarlos-gm/Parallax-Humanoid-e-commerce)
 
