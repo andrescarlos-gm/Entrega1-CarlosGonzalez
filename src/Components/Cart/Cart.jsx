@@ -93,12 +93,13 @@ const Cart = () => {
   };
 
   const handleClick = () => {
-    const list = cartList.filter(function (el) {
+    const list = cartList.map(function (el) {
       return {
         id: el.id,
         name: el.name,
-        price: el.price,
+        unitaryprice: currencyFormat(el.price),
         quantity: el.quantity,
+        totalprice: currencyFormat(el.price*el.quantity)
       };
     });
 
@@ -108,12 +109,14 @@ const Cart = () => {
         lastname,
         phone: num,
         email,
+        date: Date()
       },
       list,
       total: currencyFormat(
         calculateTotal(cartList) + calculateTotal(cartList) * TAX_RATE
       ),
     };
+
 
     const db = getFirestore();
     const orderCollection = collection(db, "orders");
@@ -126,7 +129,6 @@ const Cart = () => {
       }
     });
   };
-
   return (
     <div
       style={{
