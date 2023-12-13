@@ -1,6 +1,8 @@
 import CartContext from "../../context/CartContext";
 import { useContext, useState } from "react";
 import { Button, Divider } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { getFirestore, collection, addDoc } from "firebase/firestore";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Table from "@mui/material/Table";
@@ -14,7 +16,7 @@ import DeleteForever from "@mui/icons-material/DeleteForever";
 import FormControl from "@mui/material/FormControl";
 import FormHelperText from "@mui/material/FormHelperText";
 import TextField from "@mui/material/TextField";
-import { getFirestore, collection, addDoc } from "firebase/firestore";
+
 const TAX_RATE = 0.19;
 
 const style = {
@@ -47,6 +49,11 @@ const Cart = () => {
   function currencyFormat(num) {
     return "$ " + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
   }
+  const navigate = useNavigate();
+
+  const navigateHome = () => {
+    navigate("/");
+  };
 
   const handleRemoveList = () => {
     removeList();
@@ -86,15 +93,15 @@ const Cart = () => {
   };
 
   const handleClick = () => {
-    const list = cartList.filter(function(el){
- return {
-  id: el.id,
-  name: el.name,
-  price: el.price,
-  quantity: el.quantity
- }
+    const list = cartList.filter(function (el) {
+      return {
+        id: el.id,
+        name: el.name,
+        price: el.price,
+        quantity: el.quantity,
+      };
     });
-    
+
     const order = {
       buyer: {
         name,
@@ -104,8 +111,8 @@ const Cart = () => {
       },
       list,
       total: currencyFormat(
-        calculateTotal(cartList) +
-          calculateTotal(cartList) * TAX_RATE),
+        calculateTotal(cartList) + calculateTotal(cartList) * TAX_RATE
+      ),
     };
 
     const db = getFirestore();
@@ -114,13 +121,11 @@ const Cart = () => {
     addDoc(orderCollection, order).then(({ id }) => {
       if (id) {
         alert("Your order: " + id + " has been completed!");
+        handleRemoveList();
+        navigateHome();
       }
     });
   };
-
-
-
-
 
   return (
     <div
@@ -258,11 +263,11 @@ const Cart = () => {
                 />
               </FormControl>
               <FormControl>
-                <TextField
+              <TextField
                   id="mail"
-                  label="Email address"
+                  label="Repeat Email address"
                   variant="filled"
-                  type="text"
+                  type="email"
                   onChange={(e) => handleChangeEmail(e)}
                   value={email}
                   autoFocus
@@ -309,7 +314,7 @@ const Cart = () => {
                 color="secondary"
                 variant="contained"
                 onClick={handleClick}
-                disabled="true"
+                disabled={(email == "")  ||  (email !==confirmEmail )}
               >
                 Buy Now
               </Button>
