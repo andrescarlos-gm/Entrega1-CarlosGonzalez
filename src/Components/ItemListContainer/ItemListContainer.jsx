@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
-import { useParams  } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import ItemList from "../Itemlist/Itemlist";
 import { getFirestore, getDocs, collection } from "firebase/firestore";
+import "./ItemListContainer.css";
 
 export default function ItemListContainer() {
   const [loading, setLoading] = useState(true);
@@ -41,8 +42,17 @@ export default function ItemListContainer() {
     fetchData();
   }, [id]);
 
+  const isRoot = id === undefined
+
   return (
     <div>
+  {isRoot &&    <div className="bgimg1">
+        <div className="caption">
+          <span className="border">
+            <p className="typ">Transform your life with a S+ robot assistant!</p>
+          </span>
+        </div>
+      </div>}
       <div className="sectioncontainer">
         <div className="section">
           <ItemList loading={loading} items={items} />

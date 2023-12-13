@@ -316,7 +316,7 @@ const Cart = () => {
                 color="secondary"
                 variant="contained"
                 onClick={handleClick}
-                disabled={(email == "")  ||  (email !==confirmEmail )}
+                disabled={(email === "")  ||  (email !==confirmEmail )}
               >
                 Buy Now
               </Button>

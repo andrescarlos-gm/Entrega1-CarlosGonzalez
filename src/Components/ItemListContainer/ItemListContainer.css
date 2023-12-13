@@ -1,0 +1,98 @@
+body,
+html {
+    margin: 0
+}
+
+.bgimg1 {
+    position:relative;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
+.bgimg1 {
+    background-image: url("../../images/Humanoids.jpg");
+    min-height: 100vh;
+}
+
+.sectioncontainer {
+    background-image: url("../../images/back2.jpg")
+}
+
+
+.caption {
+    position: absolute;
+    left: 38%; /* Centra horizontalmente en relación con el padre */
+    transform: translateX(-50%); /* Corrige el centrado usando transform */
+    top: 14%;
+    width: auto; /* Ajusta el ancho automáticamente al contenido */
+    text-align: center;
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+}
+
+.typ {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    font-family: "Courier New";
+    border-right: 0.15em solid #6864649f;
+    font-size: 2.8vh;
+    animation: typing 2s steps(38) 1s 1 normal both, blink 1s steps(1) infinite;
+}
+
+.logos{
+    max-width: 80%;
+}
+
+.title{
+    font-size: 25px;
+    font-family: monospace;
+    margin-bottom: 15px;
+    margin-right: 188px;
+}
+
+
+  @keyframes typing {
+    from {
+      width: 0;
+    }
+    to {
+      width: 100%;
+    }
+  }
+  @keyframes blink {
+    50% {
+      border-color: transparent;
+    }
+  }
+
+
+.caption .border {
+
+    color: rgba(0, 0, 0, 0.767);
+    padding: 18px;
+    letter-spacing: 10px;
+    line-height: 2;
+}
+
+.section {
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    height: fit-content;
+    display: flex;
+    min-height: 95vh;
+    align-items: center;
+    justify-content: center;
+    font-size: 35px;
+    flex-direction: column;
+    color: #000000;
+    background: rgb(68,69,84);
+    background: linear-gradient(90deg, rgba(229, 208, 204, 0.948) 0%, rgba(229, 208, 204, 0.777) 65%, rgba(229, 208, 204, 0.002) 100% );
+}
+
+.section .caption {
+    position: static;
+    width: auto;
+}
