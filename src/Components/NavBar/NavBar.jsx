@@ -44,7 +44,6 @@ function NavBar() {
     fetchData();
   }, []);
 
-  console.log(uniqueCat);
   return (
     <AppBar position="static">
       <Container maxWidth="xl">

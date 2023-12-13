@@ -1,6 +1,6 @@
 import CartContext from "../../context/CartContext";
-import { useContext } from "react";
-import { Button, Container, Divider } from "@mui/material";
+import { useContext, useState } from "react";
+import { Button, Divider } from "@mui/material";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Table from "@mui/material/Table";
@@ -13,7 +13,8 @@ import Paper from "@mui/material/Paper";
 import DeleteForever from "@mui/icons-material/DeleteForever";
 import FormControl from "@mui/material/FormControl";
 import FormHelperText from "@mui/material/FormHelperText";
-import Input from "@mui/material/Input";
+import TextField from "@mui/material/TextField";
+import { getFirestore, collection, addDoc } from "firebase/firestore";
 const TAX_RATE = 0.19;
 
 const style = {
@@ -34,6 +35,11 @@ const style = {
 
 const Cart = () => {
   const { cartList, removeList, removeItem } = useContext(CartContext);
+  const [name, setName] = useState("");
+  const [lastname, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [confirmEmail, setConfirmEmail] = useState("");
+  const [num, setNum] = useState("");
 
   const calculateTotal = (items) =>
     items.reduce((acc, item) => acc + item.quantity * item.price, 0);
@@ -50,14 +56,80 @@ const Cart = () => {
     removeItem(id);
   };
 
+  const handleChange = (e) => {
+    const regex = /^[0-9\b]+$/;
+    if (e.target.value === "" || regex.test(e.target.value)) {
+      setNum(e.target.value);
+    }
+  };
+
+  const handleChangeEmail = (e) => {
+    const regex = /[a-z]+/g;
+    if (e.target.value === "" || regex.test(e.target.value)) {
+      setEmail(e.target.value);
+    }
+  };
+
+  const handleChangeConfirmEmail = (e) => {
+    const regex = /[a-z]+/g;
+    if (e.target.value === "" || regex.test(e.target.value)) {
+      setConfirmEmail(e.target.value);
+    }
+  };
+
+  const handleChangeName = (e) => {
+    setName(e.target.value);
+  };
+
+  const handleChangeLastName = (e) => {
+    setLastName(e.target.value);
+  };
+
+  const handleClick = () => {
+    const list = cartList.filter(function(el){
+ return {
+  id: el.id,
+  name: el.name,
+  price: el.price,
+  quantity: el.quantity
+ }
+    });
+    
+    const order = {
+      buyer: {
+        name,
+        lastname,
+        phone: num,
+        email,
+      },
+      list,
+      total: currencyFormat(
+        calculateTotal(cartList) +
+          calculateTotal(cartList) * TAX_RATE),
+    };
+
+    const db = getFirestore();
+    const orderCollection = collection(db, "orders");
+
+    addDoc(orderCollection, order).then(({ id }) => {
+      if (id) {
+        alert("Your order: " + id + " has been completed!");
+      }
+    });
+  };
+
+
+
+
+
   return (
     <div
       style={{
+        marginTop: "60px",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        height: "100vh",
-        paddingTop: 90,
+        minHeight: "calc(100vh - 60px)",
       }}
     >
       <Box sx={style}>
@@ -68,7 +140,7 @@ const Cart = () => {
         <Typography id="modal-modal-description" sx={{ mt: 2 }}></Typography>
         {cartList.length !== 0 ? (
           <div>
-            <TableContainer component={Paper} sx={{paddingBottom: 5}}>
+            <TableContainer component={Paper} sx={{ paddingBottom: 5 }}>
               <Table sx={{ minWidth: 700 }} aria-label="spanning table">
                 <TableHead>
                   <TableRow>
@@ -135,72 +207,95 @@ const Cart = () => {
               </Table>
             </TableContainer>
 
-            <Divider  />
+            <Divider />
 
             <Box
               component="form"
               sx={{
                 "& > :not(style)": { m: 1 },
                 backgroundColor: "#dbd9d9",
-                display: "flex", 
+                display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
                 flexDirection: "column",
-
+                paddingTop: "40px",
+                paddingBottom: "40px",
               }}
-              noValidate
               autoComplete="off"
             >
               <FormControl>
-                <Input
+                <TextField
                   id="name"
-                  aria-describedby="my-helper-text"
-                  label="Filled"
+                  label="Your Name"
                   variant="filled"
-                  placeholder="Your Name"
+                  autoFocus
+                  onChange={(e) => handleChangeName(e)}
+                  value={name}
+                  required
                 />
               </FormControl>
               <FormControl>
-                <Input
+                <TextField
                   id="lastname"
-                  aria-describedby="my-helper-text"
-                  label="Filled"
+                  label="Your LastName"
                   variant="filled"
-                  placeholder="Your LastName"
+                  onChange={(e) => handleChangeLastName(e)}
+                  value={lastname}
+                  autoFocus
+                  required
                 />
               </FormControl>
               <FormControl>
-                <Input
-                  id="Phone"
-                  aria-describedby="my-helper-text"
-                  label="Filled"
+                <TextField
+                  id="phone"
+                  label="Your Phone number"
                   variant="filled"
-                  placeholder="Your Phone number"
+                  type="text"
+                  onChange={(e) => handleChange(e)}
+                  value={num}
+                  autoFocus
+                  required
                 />
               </FormControl>
               <FormControl>
-                <Input
+                <TextField
                   id="mail"
-                  aria-describedby="my-helper-text"
-                  label="Filled"
+                  label="Email address"
                   variant="filled"
-                  placeholder="Email address"
+                  type="text"
+                  onChange={(e) => handleChangeEmail(e)}
+                  value={email}
+                  autoFocus
+                  required
                 />
               </FormControl>
               <FormControl>
-                <Input
-                  id="mail"
-                  aria-describedby="my-helper-text"
-                  label="Filled"
+                <TextField
+                  id="mail2"
+                  label="Repeat Email address"
                   variant="filled"
-                  placeholder="Email address"
+                  type="email"
+                  onChange={(e) => handleChangeConfirmEmail(e)}
+                  value={confirmEmail}
+                  autoFocus
+                  required
                 />
                 <FormHelperText id="my-helper-text">
-                  We'll never share your data.
+                  We&apos;ll never share your data.
                 </FormHelperText>
+                {email !== confirmEmail && (
+                  <FormHelperText error>Emails do not match</FormHelperText>
+                )}
               </FormControl>
             </Box>
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "center"}}>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-around",
+                paddingTop: "40px",
+              }}
+            >
               <Button
                 size="medium"
                 color="primary"
@@ -213,11 +308,12 @@ const Cart = () => {
                 size="medium"
                 color="secondary"
                 variant="contained"
-                disabled={true}
+                onClick={handleClick}
+                disabled="true"
               >
                 Buy Now
               </Button>
-              </div>
+            </div>
           </div>
         ) : (
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
