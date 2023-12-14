@@ -42,7 +42,14 @@ const Cart = () => {
   const [email, setEmail] = useState("");
   const [confirmEmail, setConfirmEmail] = useState("");
   const [num, setNum] = useState("");
-
+  const [EmailError, setEmailError] = useState({
+    error: false,
+    message: "",
+  });
+  const [ConfirmEmailError, setConfirmEmailError] = useState({
+    error: false,
+    message: "",
+  });
   useEffect(() => {
     document.documentElement.scrollTo(0, 0);
   }, []);
@@ -83,18 +90,9 @@ const Cart = () => {
     setLastName(e.target.value);
   };
 
-  const handleChangeEmail = (e) => {
-    const regex = /[a-z]+/g;
-    if (e.target.value === "" || regex.test(e.target.value)) {
-      setEmail(e.target.value);
-    }
-  };
-
-  const handleChangeConfirmEmail = (e) => {
-    const regex = /[a-z]+/g;
-    if (e.target.value === "" || regex.test(e.target.value)) {
-      setConfirmEmail(e.target.value);
-    }
+  const EmailValidation = (email) => {
+    const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+    return regex.test(email);
   };
 
   const handleClick = () => {
@@ -132,6 +130,34 @@ const Cart = () => {
         navigateHome();
       }
     });
+  };
+
+  const handleEmailError = (email) => {
+    if (email !== "" && !EmailValidation(email)) {
+      setEmailError({
+        error: true,
+        message: "Invalid email address",
+      });
+    } else {
+      setEmailError({
+        error: false,
+        message: "",
+      });
+    }
+  };
+
+  const handleConfirmEmailError = (confirmEmail) => {
+    if (email !== confirmEmail) {
+      setConfirmEmailError({
+        error: true,
+        message: "Emails do not match",
+      });
+    } else {
+      setConfirmEmailError({
+        error: false,
+        message: "",
+      });
+    }
   };
 
   return (
@@ -273,12 +299,15 @@ const Cart = () => {
               <FormControl>
                 <TextField
                   id="mail"
-                  label="Repeat Email address"
+                  label="Your Email address"
                   variant="filled"
                   type="email"
-                  onChange={(e) => handleChangeEmail(e)}
+                  onChange={(e) => setEmail(e.target.value)}
+                  onBlur={(e) => handleEmailError(e.target.value)}
                   value={email}
                   autoFocus
+                  error={EmailError.error}
+                  helperText={EmailError.message}
                   required
                 />
               </FormControl>
@@ -288,17 +317,17 @@ const Cart = () => {
                   label="Repeat Email address"
                   variant="filled"
                   type="email"
-                  onChange={(e) => handleChangeConfirmEmail(e)}
+                  onChange={(i) => setConfirmEmail(i.target.value)}
                   value={confirmEmail}
                   autoFocus
                   required
+                  onBlur={(i) => handleConfirmEmailError(i.target.value)}
+                  error={ConfirmEmailError.error}
+                  helperText={ConfirmEmailError.message}
                 />
                 <FormHelperText id="my-helper-text">
                   We&apos;ll never share your data.
                 </FormHelperText>
-                {email !== confirmEmail && (
-                  <FormHelperText error>Emails do not match</FormHelperText>
-                )}
               </FormControl>
             </Box>
             <div
@@ -322,7 +351,12 @@ const Cart = () => {
                 color="secondary"
                 variant="contained"
                 onClick={handleClick}
-                disabled={email === "" || email !== confirmEmail}
+                disabled={
+                  email === "" ||
+                  email !== confirmEmail ||
+                  !EmailValidation(email) ||
+                  !EmailValidation(confirmEmail)
+                }
               >
                 Buy Now
               </Button>

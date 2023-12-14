@@ -1,4 +1,4 @@
-import {Container, Box, Typography} from "@mui/material/Container";
+import {Container, Box, Typography} from "@mui/material";
 import logo from "../../images/logos.png";
 
 export default function Footer() {
