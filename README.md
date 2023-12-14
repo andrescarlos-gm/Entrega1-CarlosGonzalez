@@ -15,7 +15,7 @@ Provides simple yet beauty component-based user interface. Its very easy to set 
 
 ### React-spinners
 
-"It improves site fluency during data loading or database queries."
+It improves site fluency during data loading or database queries.
 
 
 ## Running the site
