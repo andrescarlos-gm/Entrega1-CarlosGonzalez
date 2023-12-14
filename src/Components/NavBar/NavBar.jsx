@@ -61,13 +61,13 @@ function NavBar() {
                 fontWeight: 700,
                 letterSpacing: ".3rem",
                 color: "inherit",
-                transition: 'color 0.5s',
+                transition: 'color 0.3s',
                 textDecoration: "none",
                 "&:hover": { color: "grey" },
               }}
             >
               <PrecisionManufacturingIcon
-                sx={{ display: { xs: "none", md: "flex" }, mr: 1,   transition: 'color 0.5s', }}
+                sx={{ display: { xs: "none", md: "flex" }, mr: 1,   transition: 'color red 0.3s', }}
               />
               parallax_Humanoid
             </Typography>

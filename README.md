@@ -7,6 +7,19 @@ Hi! This project is designed for a React Bootcamp, intended to recreate a hypoth
 
 The site is currently in its initial stages, so I will be updating it. 
 
+## Public Npm Libraries
+
+I've used 02 aditional libraries for this project
+
+### MaterialUI
+
+Provides simple yet beauty component-based user interface. Its very easy to set up and enjoys widespread community adoption, making documentation and tutorials readily available. 
+
+### React-spinners
+
+Improves site fluency while loading data or querying database.
+
+
 ## Running the site
 
 To install dependencies and run the site:
