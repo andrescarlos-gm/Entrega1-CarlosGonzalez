@@ -1,9 +1,13 @@
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
-import { Button, CardActionArea, Grid } from "@mui/material";
 import { Link } from "react-router-dom";
+import {
+  Button,
+  CardActionArea,
+  Grid,
+  Card,
+  CardContent,
+  CardMedia,
+  Typography,
+} from "@mui/material";
 
 export default function Item({ item }) {
   return (
@@ -17,8 +21,21 @@ export default function Item({ item }) {
             alt="image"
           />
 
-          <CardContent style={{ display: 'flex', flexDirection: 'column', flexGrow: 1, height: '250px' }}>
-            <Typography gutterBottom variant="h5" component="div" color="black" paddingBottom={3}>
+          <CardContent
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              flexGrow: 1,
+              height: "250px",
+            }}
+          >
+            <Typography
+              gutterBottom
+              variant="h5"
+              component="div"
+              color="black"
+              paddingBottom={3}
+            >
               {item.ProductName}
             </Typography>
             <Typography variant="body2" color="text.secondary">

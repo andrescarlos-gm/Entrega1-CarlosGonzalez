@@ -9,8 +9,8 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import PrecisionManufacturingIcon from "@mui/icons-material/PrecisionManufacturing";
 import { useState, useEffect } from "react";
-import CartWidget from "../CartWidget/CartWidget";
 import { getFirestore, getDocs, collection } from "firebase/firestore";
+import CartWidget from "../CartWidget/CartWidget";
 
 function NavBar() {
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -30,9 +30,7 @@ function NavBar() {
         const db = getFirestore();
         const refCollection = collection(db, "parallaxhumanoid");
         const snapshot = await getDocs(refCollection);
-
         const data = snapshot.docs.map((doc) => doc.data());
-
         const categories = data.map((item) => item.Category);
         const uniqueCat = [...new Set(categories)];
         setUniqueCat(uniqueCat);
@@ -43,10 +41,8 @@ function NavBar() {
 
     fetchData();
   }, []);
-
-  console.log(uniqueCat);
   return (
-    <AppBar position="static">
+    <AppBar position="sticky">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <NavLink to="/" style={{ textDecoration: "none", color: "black" }}>
@@ -61,13 +57,17 @@ function NavBar() {
                 fontWeight: 700,
                 letterSpacing: ".3rem",
                 color: "inherit",
-                transition: 'color 0.3s',
+                transition: "color 0.3s",
                 textDecoration: "none",
                 "&:hover": { color: "grey" },
               }}
             >
               <PrecisionManufacturingIcon
-                sx={{ display: { xs: "none", md: "flex" }, mr: 1,   transition: 'color red 0.3s', }}
+                sx={{
+                  display: { xs: "none", md: "flex" },
+                  mr: 1,
+                  transition: "color red 0.3s",
+                }}
               />
               parallax_Humanoid
             </Typography>
@@ -115,10 +115,9 @@ function NavBar() {
               flexDirection: "row",
               alignItems: "center",
               justifyContent: "center",
-              
             }}
           >
-            {uniqueCat.map((item) => (
+            {uniqueCat.map((item, index) => (
               <Link
                 as={NavLink}
                 key={item}
@@ -127,22 +126,21 @@ function NavBar() {
                   marginRight: "8px",
                   textDecoration: "none",
                   color: "black",
-
                 }}
                 sx={{}}
                 onClick={handleCloseNavMenu}
               >
-  <Typography
-    type="title"
-    color="inherit"
-    style={{ borderRight: '0.05em solid black', padding: '0.5em', "&:hover": { color: "grey" } }}
-    
-  >
-    {item}
-  </Typography>
-
-
-                
+                <Typography
+                  type="title"
+                  color="inherit"
+                  style={{
+                    borderRight: index === uniqueCat.length - 1 ? "none" : "0.05em solid black",
+                    padding: "0.5em",
+                    "&:hover": { color: "grey" },
+                  }}
+                >
+                  {item}
+                </Typography>
               </Link>
             ))}
           </Box>

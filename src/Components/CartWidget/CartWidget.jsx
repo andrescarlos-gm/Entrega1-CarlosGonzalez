@@ -1,8 +1,8 @@
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import "./CartWidget.css";
-import CartContext from "../../context/CartContext";
 import { useContext } from "react";
 import { NavLink, Link } from "react-router-dom";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import CartContext from "../../context/CartContext";
+import "./CartWidget.css";
 
 export default function CartWidget() {
   const { cartList } = useContext(CartContext);

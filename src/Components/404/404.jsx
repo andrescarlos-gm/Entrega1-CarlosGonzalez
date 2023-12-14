@@ -1,10 +1,5 @@
-import "./404.css"
+import "./404.css";
 
-
-export default function NotFound (){
-    console.log("testing");
-return(
-<div className="bgimg">
-</div>
-    )
+export default function NotFound() {
+  return <div className="bgimg"></div>;
 }

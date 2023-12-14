@@ -42,12 +42,9 @@ export const CartProvider = ({ children }) => {
     setCartList(filterCart);
   };
 
-
-
   return (
-    
     <CartContext.Provider
-      value={{ cartList, addToCart, removeItem, removeList}}
+      value={{ cartList, addToCart, removeItem, removeList }}
     >
       {children}
     </CartContext.Provider>

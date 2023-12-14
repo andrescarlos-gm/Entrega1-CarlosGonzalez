@@ -7,11 +7,12 @@ import {
   CardMedia,
   Typography,
 } from "@mui/material";
+import RingLoader from "react-spinners/RingLoader";
+import {Divider} from "@mui/material";
 import ItemCount from "../ItemCount/ItemCount.jsx";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
-import RingLoader from "react-spinners/RingLoader";
-import Divider from "@mui/material/Divider";
 import CartContext from "../../context/CartContext.jsx";
+import "./ItemDetails.css"
 
 export default function ItemDetails() {
   const [item, setItem] = useState(null);
@@ -32,16 +33,15 @@ export default function ItemDetails() {
           const data = snapshot.data();
           setItem(data);
         } else {
-          console.log("No such document!");
+          setItem(404)
         }
       } catch (error) {
-        console.error("Error fetching data:", error);
+        setItem(404)
       }
     };
 
     fetchData();
   }, [id]);
- 
   useEffect(()=>{
     
     if (item) {
@@ -55,7 +55,6 @@ export default function ItemDetails() {
     setTotal(updatedTotal)
   }
   }, [cartList, item, total]);
-
   if (!item) {
     return (
       <Grid
@@ -76,10 +75,11 @@ export default function ItemDetails() {
       </Grid>
     );
   }
-
-
-
-
+  if (item === 404) {
+    return (
+    <div className="notfound"></div>
+    )
+  }
 
   return (
     <Grid
@@ -113,9 +113,7 @@ export default function ItemDetails() {
           </Typography>
           <Typography variant="h6">{item.ProductDescription}</Typography>
         </CardContent>
-
         <Divider />
-
         <CardContent sx={{ paddingRight: 6 }}>
           <Typography
             gutterBottom

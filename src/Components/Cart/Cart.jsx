@@ -1,5 +1,5 @@
 import CartContext from "../../context/CartContext";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { Button, Divider } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
@@ -43,6 +43,10 @@ const Cart = () => {
   const [confirmEmail, setConfirmEmail] = useState("");
   const [num, setNum] = useState("");
 
+  useEffect(() => {
+    document.documentElement.scrollTo(0, 0);
+  }, []);
+
   const calculateTotal = (items) =>
     items.reduce((acc, item) => acc + item.quantity * item.price, 0);
 
@@ -57,6 +61,7 @@ const Cart = () => {
 
   const handleRemoveList = () => {
     removeList();
+    document.documentElement.scrollTo(0, 0);
   };
 
   const handleRemoveItem = (id) => {
@@ -68,6 +73,14 @@ const Cart = () => {
     if (e.target.value === "" || regex.test(e.target.value)) {
       setNum(e.target.value);
     }
+  };
+
+  const handleChangeName = (e) => {
+    setName(e.target.value);
+  };
+
+  const handleChangeLastName = (e) => {
+    setLastName(e.target.value);
   };
 
   const handleChangeEmail = (e) => {
@@ -84,14 +97,6 @@ const Cart = () => {
     }
   };
 
-  const handleChangeName = (e) => {
-    setName(e.target.value);
-  };
-
-  const handleChangeLastName = (e) => {
-    setLastName(e.target.value);
-  };
-
   const handleClick = () => {
     const list = cartList.map(function (el) {
       return {
@@ -99,7 +104,7 @@ const Cart = () => {
         name: el.name,
         unitaryprice: currencyFormat(el.price),
         quantity: el.quantity,
-        totalprice: currencyFormat(el.price*el.quantity)
+        totalprice: currencyFormat(el.price * el.quantity),
       };
     });
 
@@ -109,14 +114,13 @@ const Cart = () => {
         lastname,
         phone: num,
         email,
-        date: Date()
+        date: Date(),
       },
       list,
       total: currencyFormat(
         calculateTotal(cartList) + calculateTotal(cartList) * TAX_RATE
       ),
     };
-
 
     const db = getFirestore();
     const orderCollection = collection(db, "orders");
@@ -129,6 +133,7 @@ const Cart = () => {
       }
     });
   };
+
   return (
     <div
       style={{
@@ -137,6 +142,7 @@ const Cart = () => {
         alignItems: "center",
         justifyContent: "center",
         minHeight: "calc(100vh - 60px)",
+        paddingBottom: cartList.length === 0 ? 500 : 100,
       }}
     >
       <Box sx={style}>
@@ -265,7 +271,7 @@ const Cart = () => {
                 />
               </FormControl>
               <FormControl>
-              <TextField
+                <TextField
                   id="mail"
                   label="Repeat Email address"
                   variant="filled"
@@ -316,7 +322,7 @@ const Cart = () => {
                 color="secondary"
                 variant="contained"
                 onClick={handleClick}
-                disabled={(email === "")  ||  (email !==confirmEmail )}
+                disabled={email === "" || email !== confirmEmail}
               >
                 Buy Now
               </Button>
