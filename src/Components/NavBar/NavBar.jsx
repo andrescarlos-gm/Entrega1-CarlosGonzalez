@@ -44,6 +44,7 @@ function NavBar() {
     fetchData();
   }, []);
 
+  console.log(uniqueCat);
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -60,12 +61,13 @@ function NavBar() {
                 fontWeight: 700,
                 letterSpacing: ".3rem",
                 color: "inherit",
+                transition: 'color 0.5s',
                 textDecoration: "none",
                 "&:hover": { color: "grey" },
               }}
             >
               <PrecisionManufacturingIcon
-                sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
+                sx={{ display: { xs: "none", md: "flex" }, mr: 1,   transition: 'color 0.5s', }}
               />
               parallax_Humanoid
             </Typography>
@@ -113,6 +115,7 @@ function NavBar() {
               flexDirection: "row",
               alignItems: "center",
               justifyContent: "center",
+              
             }}
           >
             {uniqueCat.map((item) => (
@@ -124,11 +127,22 @@ function NavBar() {
                   marginRight: "8px",
                   textDecoration: "none",
                   color: "black",
+
                 }}
                 sx={{}}
                 onClick={handleCloseNavMenu}
               >
-                {item}
+  <Typography
+    type="title"
+    color="inherit"
+    style={{ borderRight: '0.05em solid black', padding: '0.5em', "&:hover": { color: "grey" } }}
+    
+  >
+    {item}
+  </Typography>
+
+
+                
               </Link>
             ))}
           </Box>
