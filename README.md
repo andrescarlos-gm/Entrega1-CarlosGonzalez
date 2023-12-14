@@ -7,7 +7,7 @@ Hi! This project is designed for a React Bootcamp, intended to recreate a hypoth
 
 ## Public Npm Libraries
 
-I've used 02 aditional libraries for this project
+I've used 02 additional libraries for this project
 
 ### MaterialUI
 
@@ -15,7 +15,7 @@ Provides simple yet beauty component-based user interface. Its very easy to set 
 
 ### React-spinners
 
-Improves site fluency while loading data or querying database.
+"It improves site fluency during data loading or database queries."
 
 
 ## Running the site
