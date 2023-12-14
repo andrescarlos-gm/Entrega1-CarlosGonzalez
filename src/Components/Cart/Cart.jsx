@@ -102,7 +102,7 @@ const Cart = () => {
         name: el.name,
         unitaryprice: currencyFormat(el.price),
         quantity: el.quantity,
-        totalprice: currencyFormat(el.price * el.quantity),
+        totalprice: currencyFormat(el.price * el.quantity)
       };
     });
 
@@ -113,6 +113,7 @@ const Cart = () => {
         phone: num,
         email,
         date: Date(),
+        status: "generated"
       },
       list,
       total: currencyFormat(

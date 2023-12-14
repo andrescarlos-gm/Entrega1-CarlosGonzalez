@@ -12,7 +12,7 @@ import {Divider} from "@mui/material";
 import ItemCount from "../ItemCount/ItemCount.jsx";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 import CartContext from "../../context/CartContext.jsx";
-import "./ItemDetails.css"
+import "./ItemDetail.css"
 
 export default function ItemDetails() {
   const [item, setItem] = useState(null);

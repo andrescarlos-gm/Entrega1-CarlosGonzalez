@@ -28,10 +28,10 @@ function NavBar() {
     const fetchData = async () => {
       try {
         const db = getFirestore();
-        const refCollection = collection(db, "parallaxhumanoid");
+        const refCollection = collection(db, "categories");
         const snapshot = await getDocs(refCollection);
         const data = snapshot.docs.map((doc) => doc.data());
-        const categories = data.map((item) => item.Category);
+        const categories = data.map((item) => item.key);
         const uniqueCat = [...new Set(categories)];
         setUniqueCat(uniqueCat);
       } catch (error) {
@@ -41,6 +41,7 @@ function NavBar() {
 
     fetchData();
   }, []);
+
   return (
     <AppBar position="sticky">
       <Container maxWidth="xl">
@@ -120,7 +121,7 @@ function NavBar() {
             {uniqueCat.map((item, index) => (
               <Link
                 as={NavLink}
-                key={item}
+                key={item.id}
                 to={`/category/${item}`}
                 style={{
                   marginRight: "8px",
@@ -134,7 +135,10 @@ function NavBar() {
                   type="title"
                   color="inherit"
                   style={{
-                    borderRight: index === uniqueCat.length - 1 ? "none" : "0.05em solid black",
+                    borderRight:
+                      index === uniqueCat.length - 1
+                        ? "none"
+                        : "0.05em solid black",
                     padding: "0.5em",
                     "&:hover": { color: "grey" },
                   }}
