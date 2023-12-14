@@ -3,10 +3,11 @@
   display: inline-block;
   text-align: center;
   justify-content: flex-start;
-
+  color: black
 }
 .cart:hover{
-  color: blue
+  color: rgba(8, 71, 19, 0.802);
+  transition: color 0.5s ease-in-out;
 }
 
 .cart img span.circle {
