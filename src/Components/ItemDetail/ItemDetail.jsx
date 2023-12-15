@@ -14,7 +14,7 @@ import { getFirestore, doc, getDoc } from "firebase/firestore";
 import CartContext from "../../context/CartContext.jsx";
 import "./ItemDetail.css"
 
-export default function ItemDetails() {
+export default function ItemDetail() {
   const [item, setItem] = useState(null);
   const [total, setTotal] = useState(0);
   const { id } = useParams();

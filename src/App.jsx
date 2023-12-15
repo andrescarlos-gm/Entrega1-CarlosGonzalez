@@ -1,7 +1,7 @@
 import NavBar from "./Components/NavBar/NavBar.jsx";
 import NotFound from "./Components/404/404.jsx";
 import ItemListContainer from "./Components/ItemListContainer/ItemListContainer.jsx";
-import ItemDetail from "./Components/ItemDetails/ItemDetail.jsx"
+import ItemDetail from "./Components/ItemDetail/ItemDetail.jsx"
 import { CssBaseline } from "@mui/material";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./main.css";
