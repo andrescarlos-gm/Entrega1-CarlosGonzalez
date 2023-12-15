@@ -11,6 +11,7 @@ export default function ItemListContainer() {
   const { id } = useParams();
 
   useEffect(() => {
+    setLoading(true)
     const fetchData = async () => {
       const db = getFirestore();
       const refCollection = collection(db, "parallaxhumanoid");

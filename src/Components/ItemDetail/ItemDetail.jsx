@@ -1,18 +1,12 @@
 import { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
-import {
-  Grid,
-  Card,
-  CardContent,
-  CardMedia,
-  Typography,
-} from "@mui/material";
+import { Grid, Card, CardContent, CardMedia, Typography } from "@mui/material";
 import RingLoader from "react-spinners/RingLoader";
-import {Divider} from "@mui/material";
+import { Divider } from "@mui/material";
 import ItemCount from "../ItemCount/ItemCount.jsx";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 import CartContext from "../../context/CartContext.jsx";
-import "./ItemDetail.css"
+import "./ItemDetail.css";
 
 export default function ItemDetail() {
   const [item, setItem] = useState(null);
@@ -33,27 +27,25 @@ export default function ItemDetail() {
           const data = snapshot.data();
           setItem(data);
         } else {
-          setItem(404)
+          setItem(404);
         }
       } catch (error) {
-        setItem(404)
+        setItem(404);
       }
     };
 
     fetchData();
   }, [id]);
-  useEffect(()=>{
-    
+  useEffect(() => {
     if (item) {
-
-    const updatedTotal = cartList.reduce((acc, items) => {
-      if (items.id === parseInt(item.id)) {
-        return acc + items.quantity
-      }
-      return acc;
-    }, 0);
-    setTotal(updatedTotal)
-  }
+      const updatedTotal = cartList.reduce((acc, items) => {
+        if (items.id === parseInt(item.id)) {
+          return acc + items.quantity;
+        }
+        return acc;
+      }, 0);
+      setTotal(updatedTotal);
+    }
   }, [cartList, item, total]);
   if (!item) {
     return (
@@ -71,14 +63,13 @@ export default function ItemDetail() {
       >
         <Grid item xs={3}>
           <RingLoader color="#4a90e2" />
+          <Typography>Loading...</Typography>
         </Grid>
       </Grid>
     );
   }
   if (item === 404) {
-    return (
-    <div className="notfound"></div>
-    )
+    return <div className="notfound"></div>;
   }
 
   return (

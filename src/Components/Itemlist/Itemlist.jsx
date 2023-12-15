@@ -1,5 +1,5 @@
 import Item from "../Item/Item.jsx";
-import { Grid } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import RingLoader from "react-spinners/RingLoader.js";
 
 export default function ItemList({ items, loading }) {
@@ -19,6 +19,7 @@ export default function ItemList({ items, loading }) {
       >
         <Grid item xs={3}>
           <RingLoader color="#4a90e2" />
+          <Typography >Loading...</Typography>
         </Grid>
       </Grid>
 );
