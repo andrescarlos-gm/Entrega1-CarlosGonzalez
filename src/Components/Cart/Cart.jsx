@@ -51,7 +51,8 @@ const Cart = () => {
     message: "",
   });
   useEffect(() => {
-    document.documentElement.scrollTo(0, 0);
+    setTimeout(() => document.documentElement.scrollTo(0, 0), 0);
+    console.log("useeffect");
   }, []);
 
   const calculateTotal = (items) =>
@@ -179,6 +180,7 @@ const Cart = () => {
 
         <Typography id="modal-modal-description" sx={{ mt: 2 }}></Typography>
         {cartList.length !== 0 ? (
+          
           <div>
             <TableContainer component={Paper} sx={{ paddingBottom: 5 }}>
               <Table sx={{ minWidth: 700 }} aria-label="spanning table">

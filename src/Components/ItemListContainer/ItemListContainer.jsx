@@ -9,6 +9,7 @@ export default function ItemListContainer() {
   const [loading, setLoading] = useState(true);
   const [items, setItems] = useState([]);
   const { id } = useParams();
+  document.documentElement.scrollTo(0, 0);
 
   useEffect(() => {
     setLoading(true)

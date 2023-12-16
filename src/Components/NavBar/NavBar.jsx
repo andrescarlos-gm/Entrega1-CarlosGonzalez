@@ -1,6 +1,6 @@
 import { NavLink, Link } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
-import { Box } from "@mui/material";
+import { Box, Skeleton } from "@mui/material";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
@@ -118,10 +118,13 @@ function NavBar() {
               justifyContent: "center",
             }}
           >
+            {uniqueCat.length === 0 ?     <Skeleton variant="rectangular" width={300} height={30} /> : null}
+
+
             {uniqueCat.map((item, index) => (
               <Link
                 as={NavLink}
-                key={item.id}
+                key={index}
                 to={`/category/${item}`}
                 style={{
                   marginRight: "8px",
