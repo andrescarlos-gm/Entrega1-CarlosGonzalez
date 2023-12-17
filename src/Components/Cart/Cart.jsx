@@ -154,6 +154,12 @@ const Cart = () => {
         error: true,
         message: "Emails do not match",
       });
+      if (confirmEmail !== "" && !EmailValidation(email)) {
+        setConfirmEmailError({
+          error: true,
+          message: "Invalid email address",
+        });
+      }
     } else {
       setConfirmEmailError({
         error: false,
