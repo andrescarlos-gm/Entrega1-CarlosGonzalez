@@ -12,6 +12,8 @@ import { useState, useEffect } from "react";
 import { getFirestore, getDocs, collection } from "firebase/firestore";
 import CartWidget from "../CartWidget/CartWidget";
 
+
+
 function NavBar() {
   const [anchorElNav, setAnchorElNav] = useState(null);
 

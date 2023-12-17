@@ -1,28 +1,56 @@
 .cart {
   position: relative;
   display: inline-block;
+  padding-right: 40px;
+  padding-top: 20px;
   text-align: center;
   justify-content: flex-start;
-  color: black
+  color: rgba(0, 0, 0, 0.768)
+}
+.heart {
+  position: relative;
+  display: inline-block;
+  padding-right: 3em;
+  text-align: center;
+  justify-content: flex-start;
+  color: rgba(0, 0, 0, 0.768);
+}
+.profile {
+  position: relative;
+  display: inline-block;
+  padding-right: 3em;
+  text-align: center;
+  justify-content: flex-start;
+  color: rgba(0, 0, 0, 0.751)
 }
 .cart:hover{
   color: rgba(8, 71, 19, 0.802);
   transition: color 0.5s ease-in-out;
 }
+.iconUser:hover{
+  color: rgb(186, 189, 2);
+  transition: color 0.5s ease-in-out;
+}
+
 
 .cart img span.circle {
   margin-right: 60px;
 }
 
+.heart:hover{
+  color: rgb(172, 4, 4);
+  transition: color 0.5s ease-in-out;
+}
+
 .centred {
   position: absolute;
-  top: 40%;
-  left: 73%;
-  transform: translate(-50%, -50%);
+  top: 55%;
+  left: 50%;
+  transform: translate(-20%, -75%);
 }
 
 span.circle {
-  background: rgba(252, 222, 32, 0.455);
+  background: rgba(0, 0, 0, 0.792);
   border-radius: 0.8em;
   -moz-border-radius: 0.8em;
   -webkit-border-radius: 0.8em;
