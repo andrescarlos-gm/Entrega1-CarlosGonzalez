@@ -4,6 +4,7 @@ import { Grid, Card, CardContent, CardMedia, Typography } from "@mui/material";
 import RingLoader from "react-spinners/RingLoader";
 import { Divider } from "@mui/material";
 import ItemCount from "../ItemCount/ItemCount.jsx";
+
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 import CartContext from "../../context/CartContext.jsx";
 import "./ItemDetail.css";
@@ -13,6 +14,7 @@ export default function ItemDetail() {
   const [total, setTotal] = useState(0);
   const { id } = useParams();
   const { cartList } = useContext(CartContext);
+  
   function currencyFormat(num) {
     return "$ " + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
   }
@@ -81,6 +83,7 @@ export default function ItemDetail() {
       paddingTop={"100px"}
       paddingLeft={"300px"}
       paddingRight={"150px"}
+      className="main-container"
     >
       <Grid item xs={6}>
         <Card
