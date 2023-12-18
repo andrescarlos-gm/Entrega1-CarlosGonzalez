@@ -1,14 +1,18 @@
 import { useContext, useState } from "react";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useNavigate } from "react-router-dom";
 import ShoppingCartTwoToneIcon from "@mui/icons-material/ShoppingCartTwoTone";
 import CartContext from "../../context/CartContext";
 import "./CartWidget.css";
-import { Button, MenuItem, Menu } from "@mui/material";
+import { Button, MenuItem, Menu, Typography, Container } from "@mui/material";
 import ManageAccountsTwoToneIcon from "@mui/icons-material/ManageAccountsTwoTone";
 import FavoriteTwoToneIcon from "@mui/icons-material/FavoriteTwoTone";
-export default function CartWidget() {
-  const [anchorEl, setAnchorEl] = useState(null);
+import FavoriteBorderTwoToneIcon from '@mui/icons-material/FavoriteBorderTwoTone';
+import { auth } from "../../../firebase";
+import { signOut } from "firebase/auth";
 
+export default function CartWidget() {
+  const user = JSON.parse(localStorage.getItem('user'));
+  const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -16,7 +20,14 @@ export default function CartWidget() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
+  const navigate = useNavigate();
+  const handleLogout = async () =>{
+    await signOut(auth)
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    setAnchorEl(null);
+    navigate("/")
+  }
   const { cartList } = useContext(CartContext);
   const reduce = cartList.reduce((acc, act) => acc + act.quantity, 0);
   return (
@@ -37,7 +48,6 @@ export default function CartWidget() {
               paddingBottom: 0.8,
               paddingLeft: 1,
             }}
-            className="iconUser"
           />
         </Button>
         <Menu
@@ -49,15 +59,29 @@ export default function CartWidget() {
             "aria-labelledby": "basic-button",
           }}
         >
-          <MenuItem component={Link} to="/login" onClick={handleClose}>
-            Login
-          </MenuItem>
-          <MenuItem component={Link} to="/signup" onClick={handleClose}>
-            Sign up
-          </MenuItem>
-          <MenuItem onClick={handleClose}>Profile</MenuItem>
-          <MenuItem onClick={handleClose}>My account</MenuItem>
-          <MenuItem onClick={handleClose}>Logout</MenuItem>
+{
+  user && (
+    <Container>
+      <Typography padding={"22px"} style={{fontWeight: 600}}>Hello, {user.email}</Typography>
+      <MenuItem onClick={handleClose}>Profile</MenuItem>
+      <MenuItem onClick={handleClose}>My account</MenuItem>
+      <MenuItem component={Link} to="/" onClick={handleLogout}>
+        Log Out
+      </MenuItem>
+    </Container>
+  ) || (
+    <Container>
+      <MenuItem component={Link} to="/login" onClick={handleClose}>
+        Log in
+      </MenuItem>
+      <MenuItem component={Link} to="/signup" onClick={handleClose}>
+        Sign up
+      </MenuItem>
+    </Container>
+  )
+}
+        
+        
         </Menu>
       </div>
 

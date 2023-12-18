@@ -2,25 +2,31 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
+import { FormHelperText } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { auth } from "../../../firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 export default function Signup() {
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [EmailError, setEmailError] = useState({
     error: false,
     message: "",
   });
-const EmailValidation = (email) => {
+  const [loginError, setLoginError] = useState("");
+
+  const EmailValidation = (email) => {
     const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
     return regex.test(email);
   };
   const handleEmailError = (email) => {
-    if ((!EmailValidation(email))&& email !== "") {
+    if (!EmailValidation(email) && email !== "") {
       setEmailError({
         error: true,
         message: "Invalid email address",
@@ -32,15 +38,24 @@ const EmailValidation = (email) => {
       });
     }
   };
-
-  const handleSubmit = (event) => {
+  const navigate = useNavigate();
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const user = userCredential.user;
+      localStorage.setItem("token", user.accessToken);
+      localStorage.setItem("user", JSON.stringify(user));
+      navigate("/");
+    } catch (error) {
+      setLoginError( "Invalid email address or password");
+    }
   };
+
   return (
     <Container component="main" maxWidth="xs">
       <Box
@@ -68,7 +83,6 @@ const EmailValidation = (email) => {
             autoComplete="email"
             error={EmailError.error}
             helperText={EmailError.message}
-
             autoFocus
           />
           <TextField
@@ -76,20 +90,25 @@ const EmailValidation = (email) => {
             required
             fullWidth
             name="password"
+            onChange={(e) => setPassword(e.target.value)}
             label="Password"
             type="password"
             id="password"
             autoComplete="current-password"
           />
-          <FormControlLabel
+          {/* <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
-          />
+          /> */}
+
+          <FormHelperText id="my-helper-text" sx={{color: "red"}}>{loginError}</FormHelperText>
+
           <Button
-            type="submit"
+            type="login"
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
+            disabled={!EmailValidation(email) || !password}
           >
             Login
           </Button>
@@ -101,10 +120,7 @@ const EmailValidation = (email) => {
             </Grid>
 
             <Grid item>
-              <Link
-                as={NavLink}
-                to={"/signup"}
-              >
+              <Link as={NavLink} to={"/signup"}>
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>

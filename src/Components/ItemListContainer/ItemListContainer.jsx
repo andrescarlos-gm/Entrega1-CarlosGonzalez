@@ -5,12 +5,11 @@ import "./ItemListContainer.css";
 import Footer from "../Footer/Footer";
 import ItemList from "../Itemlist/Itemlist";
 
-export default function ItemListContainer() {
+export default function ItemListContainer() {  
   const [loading, setLoading] = useState(true);
   const [items, setItems] = useState([]);
   const { id } = useParams();
   document.documentElement.scrollTo(0, 0);
-
   useEffect(() => {
     setLoading(true)
     const fetchData = async () => {

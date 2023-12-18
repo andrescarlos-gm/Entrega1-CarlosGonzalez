@@ -5,7 +5,9 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useNavigate } from "react-router-dom";
+import { auth } from "../../../firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 export default function Signup() {
   const [email, setEmail] = useState("");
@@ -19,22 +21,31 @@ export default function Signup() {
     error: false,
     message: "",
   });
-  console.log(password1, password2);
   const [password2Error, setPassword2Error] = useState({
     error: false,
     message: "",
   });
-  const handleSubmit = (event) => {
+  const navigate = useNavigate("/");
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password1
+      );
+      const user = userCredential.user;
+      localStorage.setItem("token", user.accessToken);
+      localStorage.setItem("user", JSON.stringify(user));
+      navigate;
+    } catch (error) {
+      console.error(error);
+    }
   };
+
   const EmailValidation = (email) => {
     const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
-    console.log(regex.test(email));
     return regex.test(email);
   };
   const handleEmailError = (email) => {
@@ -139,6 +150,7 @@ export default function Signup() {
             type="submit"
             fullWidth
             variant="contained"
+            onClick={handleSubmit}
             sx={{ mt: 3, mb: 2 }}
           >
             Sign Up

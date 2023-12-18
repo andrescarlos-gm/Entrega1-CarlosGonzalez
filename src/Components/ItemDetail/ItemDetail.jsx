@@ -4,6 +4,8 @@ import { Grid, Card, CardContent, CardMedia, Typography } from "@mui/material";
 import RingLoader from "react-spinners/RingLoader";
 import { Divider } from "@mui/material";
 import ItemCount from "../ItemCount/ItemCount.jsx";
+import FavoriteTwoToneIcon from '@mui/icons-material/FavoriteTwoTone';
+import FavoriteBorderTwoToneIcon from '@mui/icons-material/FavoriteBorderTwoTone';
 
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 import CartContext from "../../context/CartContext.jsx";
@@ -80,7 +82,6 @@ export default function ItemDetail() {
       direction="row"
       justifyContent="center"
       alignItems="center"
-      paddingTop={"100px"}
       paddingLeft={"300px"}
       paddingRight={"150px"}
       className="main-container"
@@ -103,7 +104,8 @@ export default function ItemDetail() {
       <Grid item xs={6}>
         <CardContent sx={{ borderRadius: "16px" }}>
           <Typography gutterBottom variant="h4" component="div">
-            {item.ProductName}
+            {item.ProductName}          <FavoriteBorderTwoToneIcon  />
+
           </Typography>
           <Typography variant="h6">{item.ProductDescription}</Typography>
         </CardContent>
@@ -120,6 +122,9 @@ export default function ItemDetail() {
           <Typography gutterBottom variant="h6" component="div">
             Stock available: {item.stock - total}
           </Typography>
+
+
+
         </CardContent>
         <Divider light />
         <CardContent sx={{ paddingRight: 6 }}>

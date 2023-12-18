@@ -2,7 +2,8 @@ import { useState, useContext, useEffect } from "react";
 import { NavLink, Link } from "react-router-dom";
 import { Box, TextField, CardActions, Button, Grid } from "@mui/material";
 import CartContext from "../../context/CartContext";
-
+import AddShoppingCartTwoToneIcon from '@mui/icons-material/AddShoppingCartTwoTone';
+import ShoppingBagTwoToneIcon from '@mui/icons-material/ShoppingBagTwoTone';
 export default function ItemCount({ stock, id, image, name, price }) {
   const [num, setNum] = useState(1);
   const [total, setTotal] = useState(0);
@@ -60,10 +61,12 @@ export default function ItemCount({ stock, id, image, name, price }) {
           variant="contained"
           onClick={handleAddToCart}
         >
+            <AddShoppingCartTwoToneIcon/>
           Add to Cart
         </Button>
         <Link as={NavLink} to={`/cart`}>
           <Button size="medium" color="primary" variant="contained">
+<ShoppingBagTwoToneIcon/>
             View Cart
           </Button>
         </Link>
