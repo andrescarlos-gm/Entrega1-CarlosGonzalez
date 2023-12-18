@@ -1,13 +1,10 @@
 .notfound {
     position:relative;
-    background-repeat: no-repeat;
+    background-repeat: repeat;
     background-size: cover;
     background-image: url("../../images/404PROD.jpg");
     min-height: 100vh;
-
 }
-
 .main-container{
     min-height: 95vh;
-
 }

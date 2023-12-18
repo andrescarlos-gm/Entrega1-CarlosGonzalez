@@ -3,7 +3,7 @@ import { NavLink, Link } from "react-router-dom";
 import ShoppingCartTwoToneIcon from "@mui/icons-material/ShoppingCartTwoTone";
 import CartContext from "../../context/CartContext";
 import "./CartWidget.css";
-import { Button, Typography, MenuList, MenuItem, Menu } from "@mui/material";
+import { Button, MenuItem, Menu } from "@mui/material";
 import ManageAccountsTwoToneIcon from "@mui/icons-material/ManageAccountsTwoTone";
 import FavoriteTwoToneIcon from "@mui/icons-material/FavoriteTwoTone";
 export default function CartWidget() {
