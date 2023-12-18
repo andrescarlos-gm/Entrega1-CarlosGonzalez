@@ -35,7 +35,7 @@ export default function CartWidget() {
               borderLeft: "0.05em",
               color: "#3F3F3F",
               paddingBottom: 0.8,
-              paddingLeft: 1 
+              paddingLeft: 1,
             }}
             className="iconUser"
           />
@@ -49,6 +49,12 @@ export default function CartWidget() {
             "aria-labelledby": "basic-button",
           }}
         >
+          <MenuItem component={Link} to="/login" onClick={handleClose}>
+            Login
+          </MenuItem>
+          <MenuItem component={Link} to="/signup" onClick={handleClose}>
+            Sign up
+          </MenuItem>
           <MenuItem onClick={handleClose}>Profile</MenuItem>
           <MenuItem onClick={handleClose}>My account</MenuItem>
           <MenuItem onClick={handleClose}>Logout</MenuItem>

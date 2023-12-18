@@ -11,12 +11,11 @@ import PrecisionManufacturingIcon from "@mui/icons-material/PrecisionManufacturi
 import { useState, useEffect } from "react";
 import { getFirestore, getDocs, collection } from "firebase/firestore";
 import CartWidget from "../CartWidget/CartWidget";
-
-
+import app from "../../../firebase"
 
 function NavBar() {
+  app
   const [anchorElNav, setAnchorElNav] = useState(null);
-
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
