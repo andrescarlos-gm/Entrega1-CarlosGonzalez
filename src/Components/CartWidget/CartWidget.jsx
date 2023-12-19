@@ -6,7 +6,6 @@ import "./CartWidget.css";
 import { Button, MenuItem, Menu, Typography, Container } from "@mui/material";
 import ManageAccountsTwoToneIcon from "@mui/icons-material/ManageAccountsTwoTone";
 import FavoriteTwoToneIcon from "@mui/icons-material/FavoriteTwoTone";
-import FavoriteBorderTwoToneIcon from '@mui/icons-material/FavoriteBorderTwoTone';
 import { auth } from "../../../firebase";
 import { signOut } from "firebase/auth";
 

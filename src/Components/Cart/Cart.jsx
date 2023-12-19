@@ -3,19 +3,21 @@ import { useContext, useState, useEffect } from "react";
 import { Button, Divider } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
+import {
+  Box,
+  Typography,
+  FormHelperText,
+  TextField,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  FormControl,
+} from "@mui/material";
 import DeleteForever from "@mui/icons-material/DeleteForever";
-import FormControl from "@mui/material/FormControl";
-import FormHelperText from "@mui/material/FormHelperText";
-import TextField from "@mui/material/TextField";
 
 const TAX_RATE = 0.19;
 
@@ -103,7 +105,7 @@ const Cart = () => {
         name: el.name,
         unitaryprice: currencyFormat(el.price),
         quantity: el.quantity,
-        totalprice: currencyFormat(el.price * el.quantity)
+        totalprice: currencyFormat(el.price * el.quantity),
       };
     });
 
@@ -114,7 +116,7 @@ const Cart = () => {
         phone: num,
         email,
         date: Date(),
-        status: "generated"
+        status: "generated",
       },
       list,
       total: currencyFormat(
@@ -186,7 +188,6 @@ const Cart = () => {
 
         <Typography id="modal-modal-description" sx={{ mt: 2 }}></Typography>
         {cartList.length !== 0 ? (
-          
           <div>
             <TableContainer component={Paper} sx={{ paddingBottom: 5 }}>
               <Table sx={{ minWidth: 700 }} aria-label="spanning table">

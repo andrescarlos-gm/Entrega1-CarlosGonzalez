@@ -7,7 +7,7 @@ export default function Footer() {
       component="footer"
       sx={{
         backgroundColor: "primary.main",
-        color: "black",
+        color: "white",
         p: 3,
         mt: "auto", // This will push the footer to the bottom of the page
       }}

@@ -2,10 +2,11 @@ import { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { Grid, Card, CardContent, CardMedia, Typography } from "@mui/material";
 import RingLoader from "react-spinners/RingLoader";
-import { Divider } from "@mui/material";
+import { Divider, Button } from "@mui/material";
 import ItemCount from "../ItemCount/ItemCount.jsx";
-import FavoriteTwoToneIcon from '@mui/icons-material/FavoriteTwoTone';
-import FavoriteBorderTwoToneIcon from '@mui/icons-material/FavoriteBorderTwoTone';
+import FavoriteTwoToneIcon from "@mui/icons-material/FavoriteTwoTone";
+import FavoriteBorderTwoToneIcon from "@mui/icons-material/FavoriteBorderTwoTone";
+import { red } from '@mui/material/colors';
 
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 import CartContext from "../../context/CartContext.jsx";
@@ -14,9 +15,69 @@ import "./ItemDetail.css";
 export default function ItemDetail() {
   const [item, setItem] = useState(null);
   const [total, setTotal] = useState(0);
+  const [fav, setFav] = useState(false);
   const { id } = useParams();
   const { cartList } = useContext(CartContext);
-  
+
+//   const db = getFirestore();
+//   const orderCollection = collection(db, "favorites");
+//   const fetchData = async () => {
+//   try {
+//     const snapshot = await getDocs(orderCollection);
+//     if (snapshot.size === 0) {
+//       console.log("No results");
+//     }
+//     if (id) {
+//       const filteredData = snapshot.docs
+//         .filter((doc) => doc.data().Category === id)
+//         .map((doc) => ({
+//           ...doc.data(),
+//           uid: doc.id,
+//         }));
+//       setItems(filteredData);
+//     } else {
+//       const itemsData = snapshot.docs.map((doc) => ({
+//         ...doc.data(),
+//         uid: doc.id,
+//       }));
+//       setItems(itemsData);
+//     }
+//   } catch (error) {
+//     console.error("Error fetching data:", error);
+//   } finally {
+//     setLoading(false);
+//   }
+// };
+// fetchData();
+// }, [id]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  const favHandler = () => {
+    setFav(!fav);
+  };
+
   function currencyFormat(num) {
     return "$ " + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
   }
@@ -104,8 +165,7 @@ export default function ItemDetail() {
       <Grid item xs={6}>
         <CardContent sx={{ borderRadius: "16px" }}>
           <Typography gutterBottom variant="h4" component="div">
-            {item.ProductName}          <FavoriteBorderTwoToneIcon  />
-
+            {item.ProductName}
           </Typography>
           <Typography variant="h6">{item.ProductDescription}</Typography>
         </CardContent>
@@ -122,9 +182,9 @@ export default function ItemDetail() {
           <Typography gutterBottom variant="h6" component="div">
             Stock available: {item.stock - total}
           </Typography>
-
-
-
+          <Button onClick={favHandler}>
+           {fav?<FavoriteBorderTwoToneIcon sx={{ color: red[500] }}/> : <FavoriteTwoToneIcon sx={{ color: red[500] }}/> } 
+          </Button>
         </CardContent>
         <Divider light />
         <CardContent sx={{ paddingRight: 6 }}>
