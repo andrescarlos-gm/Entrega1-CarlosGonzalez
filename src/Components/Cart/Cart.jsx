@@ -54,7 +54,6 @@ const Cart = () => {
   });
   useEffect(() => {
     setTimeout(() => document.documentElement.scrollTo(0, 0), 0);
-    console.log("useeffect");
   }, []);
 
   const calculateTotal = (items) =>

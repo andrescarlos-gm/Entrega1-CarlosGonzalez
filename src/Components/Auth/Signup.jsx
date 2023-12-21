@@ -8,7 +8,7 @@ import Container from "@mui/material/Container";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import { auth } from "../../../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-
+import { addDoc, getFirestore, collection} from "firebase/firestore";
 export default function Signup() {
   const [email, setEmail] = useState("");
   const [EmailError, setEmailError] = useState({
@@ -38,11 +38,18 @@ export default function Signup() {
       const user = userCredential.user;
       localStorage.setItem("token", user.accessToken);
       localStorage.setItem("user", JSON.stringify(user));
-      navigate;
+      const db = getFirestore();
+      
+      const uid = user.uid;
+      const data = { user: uid };
+      const favCollection = collection(db, "favorites");
+      await addDoc(favCollection, data);
+      navigate("/")
     } catch (error) {
       console.error(error);
+    } 
     }
-  };
+  ;
 
   const EmailValidation = (email) => {
     const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
@@ -128,7 +135,6 @@ export default function Signup() {
             error={password1Error.error}
             helperText={password1Error.message}
             id="password"
-            autoComplete="current-password"
           />
 
           <TextField

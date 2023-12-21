@@ -2,6 +2,7 @@ import { createContext, useState, useEffect } from "react";
 const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
+  
   const [cartList, setCartList] = useState(() => {
     try {
       const productosEnLocalStorage = localStorage.getItem("cartProducts");
@@ -41,10 +42,15 @@ export const CartProvider = ({ children }) => {
     const filterCart = cartList.filter((item) => item.id !== id);
     setCartList(filterCart);
   };
+  const [favs, setFavs] = useState([]);
+  const favList = (favs) => {
+    setFavs(favs) 
+  }
+
 
   return (
     <CartContext.Provider
-      value={{ cartList, addToCart, removeItem, removeList }}
+      value={{ cartList, addToCart, removeItem, removeList, favList, favs }}
     >
       {children}
     </CartContext.Provider>

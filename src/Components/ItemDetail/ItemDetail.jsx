@@ -1,13 +1,19 @@
 import { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
-import { Grid, Card, CardContent, CardMedia, Typography } from "@mui/material";
+import {
+  Grid,
+  Card,
+  CardContent,
+  CardMedia,
+  Typography,
+  Snackbar,
+} from "@mui/material";
 import RingLoader from "react-spinners/RingLoader";
 import { Divider, Button } from "@mui/material";
 import ItemCount from "../ItemCount/ItemCount.jsx";
 import FavoriteTwoToneIcon from "@mui/icons-material/FavoriteTwoTone";
 import FavoriteBorderTwoToneIcon from "@mui/icons-material/FavoriteBorderTwoTone";
-import { red } from '@mui/material/colors';
-
+import { red } from "@mui/material/colors";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 import CartContext from "../../context/CartContext.jsx";
 import "./ItemDetail.css";
@@ -17,70 +23,14 @@ export default function ItemDetail() {
   const [total, setTotal] = useState(0);
   const [fav, setFav] = useState(false);
   const { id } = useParams();
-  const { cartList } = useContext(CartContext);
-
-//   const db = getFirestore();
-//   const orderCollection = collection(db, "favorites");
-//   const fetchData = async () => {
-//   try {
-//     const snapshot = await getDocs(orderCollection);
-//     if (snapshot.size === 0) {
-//       console.log("No results");
-//     }
-//     if (id) {
-//       const filteredData = snapshot.docs
-//         .filter((doc) => doc.data().Category === id)
-//         .map((doc) => ({
-//           ...doc.data(),
-//           uid: doc.id,
-//         }));
-//       setItems(filteredData);
-//     } else {
-//       const itemsData = snapshot.docs.map((doc) => ({
-//         ...doc.data(),
-//         uid: doc.id,
-//       }));
-//       setItems(itemsData);
-//     }
-//   } catch (error) {
-//     console.error("Error fetching data:", error);
-//   } finally {
-//     setLoading(false);
-//   }
-// };
-// fetchData();
-// }, [id]);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  const favHandler = () => {
-    setFav(!fav);
-  };
-
-  function currencyFormat(num) {
-    return "$ " + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
-  }
+  const { cartList, favs } = useContext(CartContext);
+  const [open, setOpen] = useState(false);
+  //First check if product is fav for first render 
+  useEffect(() => {
+    const isFav = favs.filter((isFav) => isFav.productid === id);
+    setFav(isFav.length > 0);
+  }, [favs, id]);
+// Get item data and verify if it exists, otherwise renders 404 
   useEffect(() => {
     const fetchData = async () => {
       const db = getFirestore();
@@ -101,6 +51,7 @@ export default function ItemDetail() {
 
     fetchData();
   }, [id]);
+  // Item Quantity
   useEffect(() => {
     if (item) {
       const updatedTotal = cartList.reduce((acc, items) => {
@@ -112,6 +63,38 @@ export default function ItemDetail() {
       setTotal(updatedTotal);
     }
   }, [cartList, item, total]);
+  const favHandler = () => {
+    const user = localStorage.getItem("user")
+    const uid = JSON.parse(user)
+
+    if (user) {
+      setFav(!fav);
+
+      if (!fav === true) {
+        console.log(uid.uid,!fav, id)
+
+      } else {
+        console.log("is1", !fav)
+      }
+
+      
+    } else {
+      handleClick();
+    }
+  };
+
+  function currencyFormat(num) {
+    return "$ " + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+  }
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   if (!item) {
     return (
       <Grid
@@ -183,8 +166,19 @@ export default function ItemDetail() {
             Stock available: {item.stock - total}
           </Typography>
           <Button onClick={favHandler}>
-           {fav?<FavoriteBorderTwoToneIcon sx={{ color: red[500] }}/> : <FavoriteTwoToneIcon sx={{ color: red[500] }}/> } 
+            {fav ? (
+              <FavoriteTwoToneIcon sx={{ color: red[500] }} />
+            ) : (
+              <FavoriteBorderTwoToneIcon sx={{ color: red[500] }} />
+            )}
           </Button>
+
+          <Snackbar
+            open={open}
+            onClose={handleClose}
+            autoHideDuration={2000}
+            message="You must login in order to add favorites"
+          />
         </CardContent>
         <Divider light />
         <CardContent sx={{ paddingRight: 6 }}>

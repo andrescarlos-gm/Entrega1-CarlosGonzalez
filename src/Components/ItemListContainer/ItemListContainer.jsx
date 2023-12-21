@@ -1,17 +1,19 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { getFirestore, getDocs, collection } from "firebase/firestore";
 import "./ItemListContainer.css";
 import Footer from "../Footer/Footer";
 import ItemList from "../Itemlist/Itemlist";
+import CartContext from "../../context/CartContext";
 
-export default function ItemListContainer() {  
+export default function ItemListContainer() {
   const [loading, setLoading] = useState(true);
   const [items, setItems] = useState([]);
   const { id } = useParams();
+  const { favList} = useContext(CartContext)
   document.documentElement.scrollTo(0, 0);
   useEffect(() => {
-    setLoading(true)
+    setLoading(true);
     const fetchData = async () => {
       const db = getFirestore();
       const refCollection = collection(db, "parallaxhumanoid");
@@ -45,6 +47,33 @@ export default function ItemListContainer() {
   }, [id]);
 
   const isRoot = id === undefined;
+
+  const user = JSON.parse(localStorage.getItem("user"));
+  useEffect(() => {
+    if (user) {
+      const fetchLikes = async () => {
+        const db = getFirestore();
+        const orderCollection = collection(db, "favorites");
+        try {
+          const snapshot = await getDocs(orderCollection);
+
+          if (user) {
+            const filteredData = snapshot.docs
+              .filter((doc) => doc.data().uid === user.uid)
+              .map((doc) => ({
+                ...doc.data(),
+                uid: user.uid,
+              }));
+              favList(filteredData);
+            }
+        } 
+        catch (error) {
+          console.error("Error fetching data:", error);
+        }
+      };
+      fetchLikes();
+    }
+  }, []);
 
   return (
     <div>
