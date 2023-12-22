@@ -1,6 +1,6 @@
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import { FormHelperText } from "@mui/material";
+import { FormHelperText, Snackbar } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -18,6 +18,15 @@ export default function Signup() {
     message: "",
   });
   const [loginError, setLoginError] = useState("");
+  const [open, setOpen] = useState(false);
+  
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const EmailValidation = (email) => {
     const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
@@ -48,7 +57,10 @@ export default function Signup() {
       const user = userCredential.user;
       localStorage.setItem("token", user.accessToken);
       localStorage.setItem("user", JSON.stringify(user));
-      navigate("/");
+      handleClick()
+      setTimeout(() => {
+        navigate("/");
+      }, 3000);
     } catch (error) {
       setLoginError( "Invalid email address or password");
     }
@@ -110,6 +122,11 @@ export default function Signup() {
           >
             Login
           </Button>
+          <Snackbar
+            open={open}
+            onClose={handleClose}
+            message={`Welcome Back ${email}`}
+          />
           <Grid container>
             <Grid item xs>
               <Link href="#" variant="body2">

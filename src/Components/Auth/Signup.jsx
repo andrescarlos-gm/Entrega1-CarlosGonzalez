@@ -9,6 +9,8 @@ import { NavLink, Link, useNavigate } from "react-router-dom";
 import { auth } from "../../../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { addDoc, getFirestore, collection} from "firebase/firestore";
+import { Snackbar } from "@mui/material";
+
 export default function Signup() {
   const [email, setEmail] = useState("");
   const [EmailError, setEmailError] = useState({
@@ -25,10 +27,20 @@ export default function Signup() {
     error: false,
     message: "",
   });
+  const [open, setOpen] = useState(false);
+
   const navigate = useNavigate("/");
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    
     try {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
@@ -44,7 +56,10 @@ export default function Signup() {
       const data = { user: uid };
       const favCollection = collection(db, "favorites");
       await addDoc(favCollection, data);
-      navigate("/")
+      handleClick()
+      setTimeout(() => {
+        navigate("/");
+      }, 5000);
     } catch (error) {
       console.error(error);
     } 
@@ -161,6 +176,11 @@ export default function Signup() {
           >
             Sign Up
           </Button>
+          <Snackbar
+            open={open}
+            onClose={handleClose}
+            message="You've been successfully registered, now logging in..."
+          />
           <Grid container>
             <Grid item xs>
               <Link href="#" variant="body2">

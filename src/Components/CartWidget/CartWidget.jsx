@@ -3,7 +3,7 @@ import { NavLink, Link, useNavigate } from "react-router-dom";
 import ShoppingCartTwoToneIcon from "@mui/icons-material/ShoppingCartTwoTone";
 import CartContext from "../../context/CartContext";
 import "./CartWidget.css";
-import { Button, MenuItem, Menu, Typography, Container } from "@mui/material";
+import { Button, MenuItem, Menu, Typography, Container, Snackbar } from "@mui/material";
 import ManageAccountsTwoToneIcon from "@mui/icons-material/ManageAccountsTwoTone";
 import FavoriteTwoToneIcon from "@mui/icons-material/FavoriteTwoTone";
 import { auth } from "../../../firebase";
@@ -13,15 +13,26 @@ export default function CartWidget() {
   const user = JSON.parse(localStorage.getItem('user'));
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
+  const [opensnack, setOpenSnack] = useState(false);
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
+  };
+  const handleClickSnack = () => {
+    setOpenSnack(true);
+  };
+
+  const handleCloseSnack = () => {
+    setOpenSnack(false);
   };
   const handleClose = () => {
     setAnchorEl(null);
   };
   const navigate = useNavigate();
   const handleLogout = async () =>{
+
     await signOut(auth)
+    handleClickSnack()
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     setAnchorEl(null);
@@ -67,6 +78,7 @@ export default function CartWidget() {
       <MenuItem component={Link} to="/" onClick={handleLogout}>
         Log Out
       </MenuItem>
+
     </Container>
   ) || (
     <Container>
@@ -76,6 +88,7 @@ export default function CartWidget() {
       <MenuItem component={Link} to="/signup" onClick={handleClose}>
         Sign up
       </MenuItem>
+
     </Container>
   )
 }
@@ -100,6 +113,12 @@ export default function CartWidget() {
           </div>
         </div>
       </Link>
+      <Snackbar
+            open={opensnack}
+            onClose={handleCloseSnack}
+            autoHideDuration={5000} 
+            message="Logging Out"
+          />
     </div>
   );
 }
