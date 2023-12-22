@@ -8,7 +8,7 @@ import Container from "@mui/material/Container";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import { auth } from "../../../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { addDoc, getFirestore, collection, setDoc, doc} from "firebase/firestore";
+import {  getFirestore, setDoc, doc} from "firebase/firestore";
 import { Snackbar } from "@mui/material";
 
 export default function Signup() {

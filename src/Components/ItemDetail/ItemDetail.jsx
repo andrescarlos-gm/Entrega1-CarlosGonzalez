@@ -25,12 +25,15 @@ export default function ItemDetail() {
   const { id } = useParams();
   const { cartList, favs } = useContext(CartContext);
   const [open, setOpen] = useState(false);
-  //First check if product is fav for first render 
+  //First check if product is fav for first render
   useEffect(() => {
-    const isFav = favs.filter((isFav) => isFav.productid === id);
-    setFav(isFav.length > 0);
+    if (favs.length !== 0) {
+      const isFav = favs.filter((isFav) => isFav.productid === id);
+      setFav(isFav.length > 0);
+    }
   }, [favs, id]);
-// Get item data and verify if it exists, otherwise renders 404 
+
+  // Get item data and verify if it exists, otherwise renders 404
   useEffect(() => {
     const fetchData = async () => {
       const db = getFirestore();
@@ -63,21 +66,21 @@ export default function ItemDetail() {
       setTotal(updatedTotal);
     }
   }, [cartList, item, total]);
+
   const favHandler = () => {
-    const user = localStorage.getItem("user")
-    const uid = JSON.parse(user)
+    const user = localStorage.getItem("user");
+    const uid = JSON.parse(user);
 
     if (user) {
       setFav(!fav);
 
+      const db = getFirestore();
+      const data = getDoc(doc(db, "favorites", uid));
       if (!fav === true) {
-        console.log(uid.uid,!fav, id)
-
+        console.log(data);
       } else {
-        console.log("is1", !fav)
+        console.log("is1", !fav);
       }
-
-      
     } else {
       handleClick();
     }
