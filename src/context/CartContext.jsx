@@ -43,10 +43,10 @@ export const CartProvider = ({ children }) => {
     setCartList(filterCart);
   };
   const [favs, setFavs] = useState([]);
+  
   const favList = (favs) => {
     setFavs(favs) 
   }
-
 
   return (
     <CartContext.Provider

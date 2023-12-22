@@ -15,7 +15,6 @@ export default function ItemListContainer() {
   const { id } = useParams();
   useEffect(() => {
     document.documentElement.scrollTo(0, 0);
-
     setLoading(true);
     const fetchData = async () => {
       const db = getFirestore();

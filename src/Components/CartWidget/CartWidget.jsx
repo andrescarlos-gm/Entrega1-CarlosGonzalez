@@ -97,7 +97,7 @@ export default function CartWidget() {
         </Menu>
       </div>
 
-      <Link as={NavLink} to={`/cart`}>
+      <Link as={NavLink} to={`/Wishlist`}>
         <div className="heart">
           <FavoriteTwoToneIcon sx={{ scale: "1.3", borderLeft: "0.05em" }} />
         </div>

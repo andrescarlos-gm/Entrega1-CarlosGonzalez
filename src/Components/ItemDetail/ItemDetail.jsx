@@ -79,7 +79,7 @@ useEffect(()=>{
     const user = localStorage.getItem("user");
     const uid = JSON.parse(user);
     const favsDoc = doc(db, "favorites", uid.uid);
-    if (!fav) {
+    if (!fav === true) {
       const favsData = (await getDoc(favsDoc)).data();
       const existingProducts = favsData?.product || [];
       const updatedProducts = [...existingProducts, id];

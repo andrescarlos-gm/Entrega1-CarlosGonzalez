@@ -26,7 +26,7 @@ function NavBar() {
     setAnchorElNav(null);
   };
   const [uniqueCat, setUniqueCat] = useState([]);
-  const { favList } = useContext(CartContext);
+  const { favList, favs } = useContext(CartContext);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -41,10 +41,8 @@ function NavBar() {
         console.error("Error fetching data", error);
       }
     };
-
     fetchData();
   }, []);
-
 
   const user = JSON.parse(localStorage.getItem("user"));
   useEffect(() => {
@@ -55,6 +53,7 @@ function NavBar() {
         try {
           const snapshot = await getDoc(favRef);
           const favs = snapshot.data();
+          console.log(favs)
           favList(favs.product);
         } catch (error) {
           console.error("Error fetching data:", error);

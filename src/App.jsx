@@ -9,7 +9,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./main.css";
 import CartContainer from "./Components/CartContainer/CartContainer.jsx";
 import { CartProvider } from "./context/CartContext.jsx";
-
+import Wishlist from "./Components/Wishlist/Wishlist.jsx";
 function App() {
   return (
     <BrowserRouter>
@@ -24,6 +24,7 @@ function App() {
           <Route path="/cart" element={<CartContainer  />} />
           <Route path="/signup" element={<Signup  />} />
           <Route path="/login" element={<Login  />} />
+          <Route path="/wishlist" element={<Wishlist  />} />
         </Routes>
         </CartProvider>
       </CssBaseline>
