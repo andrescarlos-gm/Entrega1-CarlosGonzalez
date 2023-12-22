@@ -52,7 +52,7 @@ export default function Signup() {
       localStorage.setItem("user", JSON.stringify(user));
       const db = getFirestore();
       const uid = user.uid;
-      const data = { user: uid };
+      const data = {  };
       await setDoc(doc(db, "favorites", uid), data)
       handleClick()
       setTimeout(() => {

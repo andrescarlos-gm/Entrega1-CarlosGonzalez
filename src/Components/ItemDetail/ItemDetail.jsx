@@ -14,7 +14,7 @@ import ItemCount from "../ItemCount/ItemCount.jsx";
 import FavoriteTwoToneIcon from "@mui/icons-material/FavoriteTwoTone";
 import FavoriteBorderTwoToneIcon from "@mui/icons-material/FavoriteBorderTwoTone";
 import { red } from "@mui/material/colors";
-import { getFirestore, doc, getDoc } from "firebase/firestore";
+import { getFirestore, doc, getDoc, updateDoc, deleteField } from "firebase/firestore";
 import CartContext from "../../context/CartContext.jsx";
 import "./ItemDetail.css";
 
@@ -25,13 +25,9 @@ export default function ItemDetail() {
   const { id } = useParams();
   const { cartList, favs } = useContext(CartContext);
   const [open, setOpen] = useState(false);
+  const [openLike, setOpenLike] = useState(false);
+
   //First check if product is fav for first render
-  useEffect(() => {
-    if (favs.length !== 0) {
-      const isFav = favs.filter((isFav) => isFav.productid === id);
-      setFav(isFav.length > 0);
-    }
-  }, [favs, id]);
 
   // Get item data and verify if it exists, otherwise renders 404
   useEffect(() => {
@@ -54,6 +50,7 @@ export default function ItemDetail() {
 
     fetchData();
   }, [id]);
+
   // Item Quantity
   useEffect(() => {
     if (item) {
@@ -67,20 +64,35 @@ export default function ItemDetail() {
     }
   }, [cartList, item, total]);
 
-  const favHandler = () => {
+  const handleUpdate = async () => {
+    const db = getFirestore();
     const user = localStorage.getItem("user");
     const uid = JSON.parse(user);
+    const favsDoc = doc(db, "favorites", uid.uid);
+    if (!fav === true) {
+    const favsData = (await getDoc(favsDoc)).data();
+    // console.log(favsData.product.includes(id))
+    const existingProducts = favsData?.product || [];
+    
+    const updatedProducts = [...existingProducts, id];
+    // Update the document with the updated array of products
+    
+    await updateDoc(favsDoc, {
+      product: updatedProducts,
+    });
 
+    setOpenLike(true);
+  } else {
+    await updateDoc(favsDoc, {
+      product: deleteField(),
+    });
+  }
+};
+  const favHandler = () => {
+    const user = localStorage.getItem("user");
     if (user) {
       setFav(!fav);
-
-      const db = getFirestore();
-      const data = getDoc(doc(db, "favorites", uid));
-      if (!fav === true) {
-        console.log(data);
-      } else {
-        console.log("is1", !fav);
-      }
+      handleUpdate();
     } else {
       handleClick();
     }
@@ -96,6 +108,10 @@ export default function ItemDetail() {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleCloseLike = () => {
+    setOpenLike(false);
   };
 
   if (!item) {
@@ -181,6 +197,12 @@ export default function ItemDetail() {
             onClose={handleClose}
             autoHideDuration={2000}
             message="You must login in order to add favorites"
+          />
+          <Snackbar
+            open={openLike}
+            onClose={handleCloseLike}
+            autoHideDuration={2000}
+            message={`Added to favs`}
           />
         </CardContent>
         <Divider light />

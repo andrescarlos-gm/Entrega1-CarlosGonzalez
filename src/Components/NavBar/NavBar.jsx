@@ -8,10 +8,12 @@ import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import PrecisionManufacturingIcon from "@mui/icons-material/PrecisionManufacturing";
-import { useState, useEffect } from "react";
-import { getFirestore, getDocs, collection } from "firebase/firestore";
+import { useState, useEffect, useContext } from "react";
+import { getFirestore, getDocs, collection, doc, getDoc } from "firebase/firestore";
 import CartWidget from "../CartWidget/CartWidget";
 import app from "../../../firebase"
+import CartContext from "../../context/CartContext.jsx";
+
 
 function NavBar() {
   app
@@ -24,7 +26,7 @@ function NavBar() {
     setAnchorElNav(null);
   };
   const [uniqueCat, setUniqueCat] = useState([]);
-
+  const { favList } = useContext(CartContext);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -43,6 +45,24 @@ function NavBar() {
     fetchData();
   }, []);
 
+
+  const user = JSON.parse(localStorage.getItem("user"));
+  useEffect(() => {
+    if (user) {
+      const fetchLikes = async () => {
+        const db = getFirestore();
+        const favRef = doc(db, "favorites", `${user.uid}`);
+        try {
+          const snapshot = await getDoc(favRef);
+          const favs = snapshot.data();
+          favList(favs.product);
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
+      };
+      fetchLikes();
+    }
+  }, []);
   return (
     <AppBar position="sticky">
       <Container maxWidth="xl">

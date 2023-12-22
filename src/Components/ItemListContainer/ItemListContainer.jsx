@@ -1,22 +1,18 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import {
   getFirestore,
   getDocs,
-  collection,
-  doc,
-  getDoc,
+  collection
 } from "firebase/firestore";
 import "./ItemListContainer.css";
 import Footer from "../Footer/Footer";
 import ItemList from "../Itemlist/Itemlist";
-import CartContext from "../../context/CartContext";
 
 export default function ItemListContainer() {
   const [loading, setLoading] = useState(true);
   const [items, setItems] = useState([]);
   const { id } = useParams();
-  const { favList } = useContext(CartContext);
   useEffect(() => {
     document.documentElement.scrollTo(0, 0);
 
@@ -55,23 +51,6 @@ export default function ItemListContainer() {
 
   const isRoot = id === undefined;
 
-  const user = JSON.parse(localStorage.getItem("user"));
-  useEffect(() => {
-    if (user) {
-      const fetchLikes = async () => {
-        const db = getFirestore();
-        const favRef = doc(db, "favorites", `${user.uid}` );
-        try {
-          const snapshot = await getDoc(favRef);
-          const favs = snapshot.data()
-         favList(favs);
-        } catch (error) {
-          console.error("Error fetching data:", error);
-        }
-      };
-      fetchLikes();
-    }
-  }, [favList, user]);
 
   return (
     <div>
