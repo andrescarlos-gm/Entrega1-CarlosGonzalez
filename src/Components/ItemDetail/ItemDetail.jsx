@@ -18,8 +18,7 @@ import {
   getFirestore,
   doc,
   getDoc,
-  updateDoc,
-  deleteField,
+  updateDoc
 } from "firebase/firestore";
 import CartContext from "../../context/CartContext.jsx";
 import "./ItemDetail.css";
@@ -32,9 +31,14 @@ export default function ItemDetail() {
   const { cartList, favs } = useContext(CartContext);
   const [open, setOpen] = useState(false);
   const [openLike, setOpenLike] = useState(false);
+  const [openLikerm, setOpenLikerm] = useState(false);
 
   //First check if product is fav for first render
-
+useEffect(()=>{
+  if(favs.includes(id)){
+    setFav(true)
+  }
+},[favs])
   // Get item data and verify if it exists, otherwise renders 404
   useEffect(() => {
     const fetchData = async () => {
@@ -77,7 +81,6 @@ export default function ItemDetail() {
     const favsDoc = doc(db, "favorites", uid.uid);
     if (!fav) {
       const favsData = (await getDoc(favsDoc)).data();
-      console.log(favsData);
       const existingProducts = favsData?.product || [];
       const updatedProducts = [...existingProducts, id];
       if (!favsData.product.includes(id)) {
@@ -89,7 +92,6 @@ export default function ItemDetail() {
       setOpenLike(true);
     } else {
       const favsData = (await getDoc(favsDoc)).data();
-      console.log(favsData);
       const existingProducts = favsData?.product || [];
       const updatedProducts = existingProducts.filter(
         (productId) => productId !== id
@@ -97,7 +99,7 @@ export default function ItemDetail() {
       await updateDoc(favsDoc, {
         product: updatedProducts,
       });
-      setOpenLike(true);
+      setOpenLikerm(true);
     }
   };
   const favHandler = () => {
@@ -124,6 +126,9 @@ export default function ItemDetail() {
 
   const handleCloseLike = () => {
     setOpenLike(false);
+  };
+  const handleCloseLikerm = () => {
+    setOpenLikerm(false);
   };
 
   if (!item) {
@@ -215,6 +220,12 @@ export default function ItemDetail() {
             onClose={handleCloseLike}
             autoHideDuration={2000}
             message={`Added to favs`}
+          />
+           <Snackbar
+            open={openLikerm}
+            onClose={handleCloseLikerm}
+            autoHideDuration={2000}
+            message={`Removed from favs`}
           />
         </CardContent>
         <Divider light />
