@@ -8,7 +8,7 @@ import Container from "@mui/material/Container";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import { auth } from "../../../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { addDoc, getFirestore, collection} from "firebase/firestore";
+import { addDoc, getFirestore, collection, setDoc, doc} from "firebase/firestore";
 import { Snackbar } from "@mui/material";
 
 export default function Signup() {
@@ -51,11 +51,9 @@ export default function Signup() {
       localStorage.setItem("token", user.accessToken);
       localStorage.setItem("user", JSON.stringify(user));
       const db = getFirestore();
-      
       const uid = user.uid;
       const data = { user: uid };
-      const favCollection = collection(db, "favorites");
-      await addDoc(favCollection, data);
+      await setDoc(doc(db, "favorites", uid), data)
       handleClick()
       setTimeout(() => {
         navigate("/");
@@ -86,7 +84,6 @@ export default function Signup() {
 
   const PasswordValidation = (password) => {
     const regex = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,16}$/;
-    console.log(regex.test(password));
     return regex.test(password);
   };
   const handlePassword1Validation = (password) => {
@@ -97,13 +94,24 @@ export default function Signup() {
           "Password must contain one digit from 1 to 9, one lowercase letter, one uppercase letter, one special character, no space, and it must be 8-16 characters long.",
       });
     }
+    else {
+      setPassword1Error({
+        error: false,
+        message: ""
+      });
+    }
   };
-  const handlePassword2Validation = () => {
-    if (password2 !== password1) {
+  const handlePassword2Validation = (password2) => {
+    if ((password2 !== password1) && password2 !== "" ) {
       setPassword2Error({
         error: true,
         message: "Passwords must match",
       });
+    } else {
+      setPassword2Error({
+        error: false,
+        message: ""
+      })
     }
   };
 
