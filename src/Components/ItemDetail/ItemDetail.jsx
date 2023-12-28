@@ -28,7 +28,7 @@ export default function ItemDetail() {
   const [total, setTotal] = useState(0);
   const [fav, setFav] = useState(false);
   const { id } = useParams();
-  const { cartList, favs } = useContext(CartContext);
+  const { cartList, favs, favList } = useContext(CartContext);
   const [open, setOpen] = useState(false);
   const [openLike, setOpenLike] = useState(false);
   const [openLikerm, setOpenLikerm] = useState(false);
@@ -38,7 +38,7 @@ useEffect(()=>{
   if(favs.includes(id)){
     setFav(true)
   }
-},[favs])
+},[favs, id])
   // Get item data and verify if it exists, otherwise renders 404
   useEffect(() => {
     const fetchData = async () => {
@@ -60,6 +60,25 @@ useEffect(()=>{
 
     fetchData();
   }, [id]);
+
+  const user = JSON.parse(localStorage.getItem("user"));
+//Recupera todos los favoritos 
+useEffect(() => {
+  if (user) {
+    const fetchLikes = async () => {
+      const db = getFirestore();
+      const favRef = doc(db, "favorites", `${user.uid}`);
+      try {
+        const snapshot = await getDoc(favRef);
+        const favs = snapshot.data();
+        favList(favs.product);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    fetchLikes();
+  }
+}, []);
 
   // Item Quantity
   useEffect(() => {
