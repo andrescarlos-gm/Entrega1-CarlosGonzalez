@@ -3,7 +3,7 @@
  <a href="url"><img src="https://cdn.freebiesupply.com/logos/large/2x/react-1-logo-png-transparent.png" align="left" height="48" width="48" ></a>
 
 
-Hi! This project is designed for a React Bootcamp, intended to recreate a hypothetical humanoid e-commerce platform.
+Hi! This project was designed for a React Bootcamp, intended to recreate a hypothetical humanoid e-commerce platform.
 
 ## Public Npm Libraries
 
